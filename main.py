@@ -21,7 +21,15 @@ class Entrance(QWidget, Ui_Form):
         self.pushButton.clicked.connect(self.confirm_btn_callback)
     
     def confirm_btn_callback(self):
-        pass
+        index = self.select_funcion_combo.currentIndex()
+        if index == 0:
+            pass
+        else:
+            import pyttsx3, nltk
+            engine = pyttsx3.init()
+            print(123)
+
+
 
 
 
