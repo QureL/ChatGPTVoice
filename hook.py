@@ -2,7 +2,7 @@ import sys
 import traceback
 import logging
 from PySide6 import QtCore, QtWidgets
-
+from error import BaseException
 # basic logger functionality
 log = logging.getLogger(__name__)
 handler = logging.StreamHandler(stream=sys.stdout)
@@ -38,6 +38,8 @@ class UncaughtHook(QtCore.QObject):
         if issubclass(exc_type, KeyboardInterrupt):
             # ignore keyboard interrupt to support console applications
             sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        elif issubclass(exc_type, BaseException):
+             self._exception_caught.emit(exc_value.message)
         else:
             exc_info = (exc_type, exc_value, exc_traceback)
             log_msg = '\n'.join([''.join(traceback.format_tb(exc_traceback)),
