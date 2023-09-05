@@ -100,7 +100,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit"/>
+                <widget class="QLineEdit" name="subtitle_remote_address"/>
                </item>
               </layout>
              </item>

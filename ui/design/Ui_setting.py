@@ -85,10 +85,10 @@ class Ui_setting_window(object):
 
         self.horizontalLayout_6.addWidget(self.label_3)
 
-        self.lineEdit = QLineEdit(self.scrollAreaWidgetContents)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.subtitle_remote_address = QLineEdit(self.scrollAreaWidgetContents)
+        self.subtitle_remote_address.setObjectName(u"subtitle_remote_address")
 
-        self.horizontalLayout_6.addWidget(self.lineEdit)
+        self.horizontalLayout_6.addWidget(self.subtitle_remote_address)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_6)
