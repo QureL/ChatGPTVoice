@@ -23,3 +23,6 @@ class MainWindow(QMainWindow, Ui_main_window):
         from ui.setting_window import SettingWindow
         self.setting_window = SettingWindow()
         self.actionsetting.triggered.connect(self.setting_window.show)
+
+    def closeEvent(self, event) -> None:
+        self.subtitle_main.release_resource()

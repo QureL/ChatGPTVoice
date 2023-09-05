@@ -6,6 +6,7 @@ from config.config import SubtitleConfig
 from config.const import *
 from const import *
 import logging, sys
+from ui.gui_system_subtitle import SystemSubtitle
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 class GPUDeviceInfo:
@@ -31,6 +32,7 @@ class SubtitleMain(QWidget, Ui_subtitle_main):
         self.render_combo_boxes()
         self.gpu_info = GPUDeviceInfo()
         self.bind_buttons()
+        self.system_subtitle = SystemSubtitle()
 
     
 
@@ -67,10 +69,14 @@ class SubtitleMain(QWidget, Ui_subtitle_main):
     def bind_buttons(self):
         
         def start_btn_callback():
-            pass
+            self.system_subtitle.show()
 
         self.start_btn.clicked.connect(start_btn_callback)
         self.check_env_btn.clicked.connect(self.environment_check)
+
+    def release_resource(self):
+        self.system_subtitle.close()
+
 
 
         
