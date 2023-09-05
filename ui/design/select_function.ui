@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>OfflineSubtitle</string>
+   <string>horn</string>
   </property>
   <widget class="QWidget" name="">
    <property name="geometry">

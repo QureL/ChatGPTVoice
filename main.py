@@ -44,7 +44,7 @@ class Entrance(QWidget, Ui_Form):
         self.horizontalLayout_loading = QHBoxLayout()
         self.horizontalLayout_loading.addWidget(label)
         self.horizontalLayout_loading.addWidget(label2)
-
+        from const import Mode
         if index == 0:
             pass
         else:
@@ -52,12 +52,16 @@ class Entrance(QWidget, Ui_Form):
             self.thread.signal.connect(self.import_success_callback)
             self.thread.start()
             self.verticalLayout.addLayout(self.horizontalLayout_loading)
+            self.mode = Mode.MODE_SUBTITLE
             movie.start()
+            
             
 
     def import_success_callback(self):
-        print('log success...')
-
+        from ui.main_window import MainWindow
+        self.child = MainWindow(self.mode)
+        self.child.show()
+        self.close()
 
 
 
