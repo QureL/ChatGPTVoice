@@ -3,7 +3,8 @@ from PySide6.QtCore import QSettings
 
 import const
 
-config_base_path = os.path.join(os.path.expanduser("~"), 'AppData', 'Local',
+config_base_path = os.path.join(os.path.expanduser("~"), 'AppData', 'Local', 
+                                f'{const.APP_NAME}',
                                 f'{const.APP_NAME}.ini')
 
 class ConfigBase:
