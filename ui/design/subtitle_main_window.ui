@@ -59,7 +59,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="check_env_btn">
        <property name="text">
         <string>环境检测</string>
        </property>
@@ -77,6 +77,17 @@
         </size>
        </property>
       </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QPushButton" name="start_btn">
+       <property name="text">
+        <string>启动</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

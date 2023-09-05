@@ -18,6 +18,7 @@ class BackgroudImport(QThread):
     def run(self) -> None:
         #import pyttsx3, nltk
         import pyaudio
+        import torch
         self.signal.emit("")
 
 class LoadingLabel(QLabel):

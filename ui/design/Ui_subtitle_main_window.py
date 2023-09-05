@@ -73,10 +73,10 @@ class Ui_subtitle_main(object):
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.pushButton = QPushButton(subtitle_main)
-        self.pushButton.setObjectName(u"pushButton")
+        self.check_env_btn = QPushButton(subtitle_main)
+        self.check_env_btn.setObjectName(u"check_env_btn")
 
-        self.horizontalLayout_4.addWidget(self.pushButton)
+        self.horizontalLayout_4.addWidget(self.check_env_btn)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -86,6 +86,16 @@ class Ui_subtitle_main(object):
         self.horizontalLayout_4.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.horizontalLayout_4)
+
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.start_btn = QPushButton(subtitle_main)
+        self.start_btn.setObjectName(u"start_btn")
+
+        self.horizontalLayout_5.addWidget(self.start_btn)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
 
 
         self.retranslateUi(subtitle_main)
@@ -98,6 +108,7 @@ class Ui_subtitle_main(object):
         self.label.setText(QCoreApplication.translate("subtitle_main", u"\u9009\u62e9\u8f93\u5165\u8bbe\u5907", None))
         self.label_2.setText(QCoreApplication.translate("subtitle_main", u"\u6a21\u578b\u9009\u62e9", None))
         self.label_3.setText(QCoreApplication.translate("subtitle_main", u"\u8bed\u8a00", None))
-        self.pushButton.setText(QCoreApplication.translate("subtitle_main", u"\u73af\u5883\u68c0\u6d4b", None))
+        self.check_env_btn.setText(QCoreApplication.translate("subtitle_main", u"\u73af\u5883\u68c0\u6d4b", None))
+        self.start_btn.setText(QCoreApplication.translate("subtitle_main", u"\u542f\u52a8", None))
     # retranslateUi
 
