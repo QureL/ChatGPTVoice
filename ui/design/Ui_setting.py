@@ -32,6 +32,9 @@ class Ui_setting_window(object):
         self.horizontalLayout.setSizeConstraint(QLayout.SetFixedSize)
         self.gpt_setting = QTabWidget(setting_window)
         self.gpt_setting.setObjectName(u"gpt_setting")
+        self.tab_2 = QWidget()
+        self.tab_2.setObjectName(u"tab_2")
+        self.gpt_setting.addTab(self.tab_2, "")
         self.subtitle_set = QWidget()
         self.subtitle_set.setObjectName(u"subtitle_set")
         self.verticalLayout_2 = QVBoxLayout(self.subtitle_set)
@@ -117,9 +120,6 @@ class Ui_setting_window(object):
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
 
         self.gpt_setting.addTab(self.subtitle_set, "")
-        self.tab_2 = QWidget()
-        self.tab_2.setObjectName(u"tab_2")
-        self.gpt_setting.addTab(self.tab_2, "")
 
         self.horizontalLayout.addWidget(self.gpt_setting)
 
@@ -137,6 +137,7 @@ class Ui_setting_window(object):
 
     def retranslateUi(self, setting_window):
         setting_window.setWindowTitle(QCoreApplication.translate("setting_window", u"Setting", None))
+        self.gpt_setting.setTabText(self.gpt_setting.indexOf(self.tab_2), QCoreApplication.translate("setting_window", u"gpt\u8bed\u97f3", None))
         self.label.setText(QCoreApplication.translate("setting_window", u"\u91c7\u6837\u65f6\u95f4", None))
         self.label_2.setText(QCoreApplication.translate("setting_window", u"\u6a21\u5f0f", None))
         self.subtitle_mode_select_combo.setItemText(0, QCoreApplication.translate("setting_window", u"\u672c\u5730", None))
@@ -146,6 +147,5 @@ class Ui_setting_window(object):
         self.subtitle_confirm.setText(QCoreApplication.translate("setting_window", u"\u786e\u5b9a", None))
         self.subtitle_setting_cancel.setText(QCoreApplication.translate("setting_window", u"\u53d6\u6d88", None))
         self.gpt_setting.setTabText(self.gpt_setting.indexOf(self.subtitle_set), QCoreApplication.translate("setting_window", u"\u5b9e\u65f6\u5b57\u5e55", None))
-        self.gpt_setting.setTabText(self.gpt_setting.indexOf(self.tab_2), QCoreApplication.translate("setting_window", u"gpt\u8bed\u97f3", None))
     # retranslateUi
 

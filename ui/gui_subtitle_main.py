@@ -1,5 +1,3 @@
-from typing import Optional
-import PySide6.QtCore
 from PySide6.QtWidgets import QWidget, QMessageBox
 from ui.design.Ui_subtitle_main_window import Ui_subtitle_main
 from config.config import SubtitleConfig
@@ -41,7 +39,7 @@ class SubtitleMain(QWidget, Ui_subtitle_main):
     
 
     def render_combo_boxes(self):
-        devices_current = self.audio_keep.display_devices()
+        devices_current = self.audio_keep.display_devices(input=True)
         self.subtitle_input_select_combo.addItems(devices_current)
         config = SubtitleConfig()
         device_before =  config.get_config(SUBTITLE_INPUT_DEVICE)

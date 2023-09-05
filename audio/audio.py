@@ -24,14 +24,24 @@ class AudioDeviceKeepr:
         for i in range(self.p.get_device_count()):
             devInfo = self.p.get_device_info_by_index(i)
             if devInfo['hostApi'] == 0:
-                self.devices[i] = devInfo['name']
+                self.devices[i] = devInfo
 
-    def display_devices(self):
-        return self.devices.values()
+    def display_devices(self, input=None):
+        if input is None:
+            return [ v['name'] for v in self.devices.values()]
+        elif input == True:
+            ret = []
+            for v in self.devices.values():
+                if v['maxInputChannels'] > 0: ret.append(v['name'])
+        else:
+            ret = []
+            for v in self.devices.values():
+                if v['maxOutputChannels'] > 0: ret.append(v['name'])
+        return ret
 
     def get_device_index(self, device_name):
         for index, value in self.devices.items():
-            if device_name == value:
+            if device_name == value['name']:
                 return index
 
 
@@ -119,13 +129,14 @@ class AudioRecorder(QThread):
         self.device_index = self.keeper.get_device_index(device_name)
 
     def start_timer(self):
-        logging.debug("recorder`s timer start...")
+        logging.info("recorder`s timer start..., seconds=%d", self.secs)
         if not self.is_chat_mode: self.timer.start(self.secs*1000)
 
     def run(self) -> None:
         if self.device_index is None:
             raise error.DeviceNotSelected()
         self._has_recorded = True
+        logging.info("self.device_index=%d", self.device_index)
         stream = self.keeper.p.open(input_device_index=self.device_index,
                                     format=FORMAT,
                                     channels=CHANNELS,

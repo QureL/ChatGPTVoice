@@ -129,7 +129,7 @@ class S2TLocalServer(QThread, AbstractPipeline):
                 arr = np.frombuffer(
                     (msg), dtype=np.int16).astype(np.float32) / 32768.0
                 result = model.transcribe(arr,)
-                logging.info("result=%s", result)
+                logging.debug("result=%s", result)
                 text_arr = [item['text'] for item in result['segments']]
                 
             except Exception as e:
