@@ -7,7 +7,6 @@ from datetime import datetime
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
 
-SUMARRY_HEAD = '[SUMMARRY]:'
 
 
 class GPTReuqestor:
@@ -36,7 +35,8 @@ class GPTReuqestor:
 
     def request(self, text):
         if self.history is None:
-            self.history = FileChatMessageHistory(os.path.join(os.getcwd(), 'data', 'messages', datetime.now().strftime("%m-%d-%H_%M_%S")))
+            from gpt.loader import root_path
+            self.history = FileChatMessageHistory(root_path, datetime.now().strftime("%m-%d-%H_%M_%S"))
             for cmd in self._system_cmds:
                 role = list(cmd.keys())[0]
                 if role == 'system':
@@ -46,14 +46,15 @@ class GPTReuqestor:
         msgs = self.history.messages
         if self.context_cnt != -1 and len(msgs) > self.context_cnt:
             msgs = msgs[:1] + msgs[1-self.context_cnt:]
-        logging.debug("msg send=%s", msgs)
+
         resp = self.chat_llm(msgs)
         logging.debug("gpt resp=%s", resp.content)
         self.history.add_message(resp)
         return resp.content
     
     def set_session(self, session_name):
-        self.history = FileChatMessageHistory(os.path.join(os.getcwd(), 'data', 'messages', session_name))
+        from gpt.loader import root_path
+        self.history = FileChatMessageHistory(root_path, session_name)
 
 
 
