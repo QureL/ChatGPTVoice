@@ -102,13 +102,13 @@ class Text2SpeechProccessor(QThread, AbstractPipeline):
 
 class S2TLocalServer(QThread, AbstractPipeline):
 
-    def __init__(self, model_name, language, output_pipe) -> None:
+    def __init__(self, model_name, language, signal) -> None:
         QThread.__init__(self)
         self.model_name = model_name
         self.language = language
         from queue import Queue
         self.q = Queue()
-        self.output_pipe = output_pipe
+        self.signal = signal
 
 
     def put(self, msg):
@@ -128,12 +128,13 @@ class S2TLocalServer(QThread, AbstractPipeline):
             try:
                 arr = np.frombuffer(
                     (msg), dtype=np.int16).astype(np.float32) / 32768.0
-
-                r = json.dumps(model.transcribe(arr,))
-                text_arr = [item['text'] for item in r['segments']]
+                result = model.transcribe(arr,)
+                logging.info("result=%s", result)
+                text_arr = [item['text'] for item in result['segments']]
                 
-            except:
+            except Exception as e:
+                logging.error(e)
                 raise error.AITranscribeError()
             
             text2notify = "\n".join(text_arr)
-            self.output_pipe.put(text2notify)
+            self.signal.emit(text2notify)

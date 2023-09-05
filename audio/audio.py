@@ -112,6 +112,7 @@ class AudioRecorder(QThread):
         super().__init__()
 
     def timer_callback(self):
+        logging.info("recorder timer callback trigger")
         self.cond_q.put(0)
 
     def select_device(self, device_name):
@@ -139,6 +140,7 @@ class AudioRecorder(QThread):
             else:
                 if not self.cond_q.empty():
                     self.cond_q.get()
+                    logging.info("recorder send to pipe...")
                     self.output_pipe.put(b''.join(self._frames))
                     self._frames.clear()
 

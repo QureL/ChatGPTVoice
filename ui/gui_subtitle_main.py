@@ -7,6 +7,7 @@ from config.const import *
 from const import *
 import logging, sys
 from ui.gui_system_subtitle import SystemSubtitle
+from PySide6.QtCore import Signal
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 class GPUDeviceInfo:
@@ -22,6 +23,7 @@ class GPUDeviceInfo:
 
 
 class SubtitleMain(QWidget, Ui_subtitle_main):
+    text_browser_signal = Signal(str)
 
     def __init__(self, ) -> None:
         super().__init__()
@@ -33,6 +35,8 @@ class SubtitleMain(QWidget, Ui_subtitle_main):
         self.gpu_info = GPUDeviceInfo()
         self.bind_buttons()
         self.system_subtitle = SystemSubtitle()
+        self.initial_processor_record()
+        self.bind_signal()
 
     
 
@@ -70,12 +74,47 @@ class SubtitleMain(QWidget, Ui_subtitle_main):
         
         def start_btn_callback():
             self.system_subtitle.show()
+            self.start_proccessor_recorder()
 
         self.start_btn.clicked.connect(start_btn_callback)
         self.check_env_btn.clicked.connect(self.environment_check)
 
     def release_resource(self):
         self.system_subtitle.close()
+        self.proccessor.terminate()
+        self.recorder.terminate()
+
+    
+    def bind_signal(self):
+        self.text_browser_signal.connect(self.system_subtitle.update)
+
+    def initial_processor_record(self):
+        from processor.processor import S2TLocalServer
+        from config.config import SubtitleConfig
+        from audio.audio import AudioRecorder
+        model_name = self.subtitle_model_select_combo.currentText()
+        language = self.subtitle_language_select_combo.currentText()
+        self.proccessor = S2TLocalServer(model_name=model_name,
+                                         language=language,
+                                         signal=self.text_browser_signal)
+        self.config = SubtitleConfig()
+        secs = int(self.config.get_config(SAMPLE_TIME))
+        
+        self.recorder = AudioRecorder(
+            keeper=self.audio_keep,
+            output_pipe=self.proccessor,
+            is_chat=False,
+            secs=secs
+        )
+    
+    def start_proccessor_recorder(self):
+        self.recorder.select_device(self.subtitle_input_select_combo.currentText())
+        self.recorder.start_timer()
+        self.proccessor.start()
+        self.recorder.start()
+        
+
+
 
 
 
