@@ -1,3 +1,5 @@
+from const import *
+import error
 from PySide6.QtCore import QThread
 import logging
 
@@ -97,3 +99,41 @@ class Text2SpeechProccessor(QThread, AbstractPipeline):
     def put(self, msg):
         self.ws.send(msg)
 
+
+class S2TLocalServer(QThread, AbstractPipeline):
+
+    def __init__(self, model_name, language, output_pipe) -> None:
+        QThread.__init__(self)
+        self.model_name = model_name
+        self.language = language
+        from queue import Queue
+        self.q = Queue()
+        self.output_pipe = output_pipe
+
+
+    def put(self, msg):
+        self.q.put(msg)
+    
+    def get(self):
+        return super().get()
+    
+    def run(self) -> None:
+        import whisper
+        import numpy as np
+
+        model = whisper.load_model(self.model_name)
+        logging.warning("model load success... model=%s", self.model_name)
+        while True:
+            msg = self.q.get()
+            try:
+                arr = np.frombuffer(
+                    (msg), dtype=np.int16).astype(np.float32) / 32768.0
+
+                r = json.dumps(model.transcribe(arr,))
+                text_arr = [item['text'] for item in r['segments']]
+                
+            except:
+                raise error.AITranscribeError()
+            
+            text2notify = "\n".join(text_arr)
+            self.output_pipe.put(text2notify)
