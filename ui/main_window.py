@@ -11,9 +11,15 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         self.setupUi(self)
 
+        self.initial()
         if mode == Mode.MODE_SUBTITLE:
-            pass
+            from ui.gui_subtitle_main import SubtitleMain
+            self.subtitle_main = SubtitleMain()
+            self.setCentralWidget(self.subtitle_main)
+            
 
     
     def initial(self):
-        self.actionsetting.triggered.connect()
+        from ui.setting_window import SettingWindow
+        self.setting_window = SettingWindow()
+        self.actionsetting.triggered.connect(self.setting_window.show)

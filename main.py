@@ -16,7 +16,7 @@ class BackgroudImport(QThread):
         super().__init__()
 
     def run(self) -> None:
-        import pyttsx3, nltk
+        #import pyttsx3, nltk
         self.signal.emit("")
 
 class LoadingLabel(QLabel):
