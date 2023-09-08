@@ -7,26 +7,9 @@ from websocket import WebSocketApp, ABNF
 import json
 from utils.pipeline import AbstractPipeline
 
-class ResultCorrectPipeline(AbstractPipeline):
-    def __init__(self, signal, output_pipe) -> None:
-        self.signal = signal
-        self.output_pipe = output_pipe
 
-    def put(self, msg):
-        self.signal.emit(msg)
-        #self.output_pipe.put(msg)
-
-class GPT2T2SProcessorPipeline:
-    def __init__(self, signal, output_pipe) -> None:
-        self.signal = signal
-        self.output_pipe = output_pipe
-    
-    def put(self, msg):
-        self.signal.emit(msg)
-        self.output_pipe.put(msg)
-
-
-class Speech2TextProccessor(QThread, AbstractPipeline):
+'''
+class STT_Proccessor(QThread, AbstractPipeline):
 
     def __init__(self, ws_address,
                  output_pipe) -> None:
@@ -65,7 +48,7 @@ class Speech2TextProccessor(QThread, AbstractPipeline):
         self.ws.send(msg, ABNF.OPCODE_BINARY)
 
 
-class Text2SpeechProccessor(QThread, AbstractPipeline):
+class TTS_Proccessor(QThread, AbstractPipeline):
 
     def __init__(self, ws_address, output_pipe) -> None:
         self.address = ws_address
@@ -99,8 +82,8 @@ class Text2SpeechProccessor(QThread, AbstractPipeline):
     def put(self, msg):
         self.ws.send(msg)
 
-
-class S2TLocalServer(QThread, AbstractPipeline):
+'''
+class STT_ProcessorLocal(QThread, AbstractPipeline):
 
     def __init__(self, model_name, language, output_pipe) -> None:
         QThread.__init__(self)
@@ -114,8 +97,15 @@ class S2TLocalServer(QThread, AbstractPipeline):
     def put(self, msg):
         self.q.put(msg)
     
-    def get(self):
-        return super().get()
+    def set_attribute(self, **args):
+        changd = False
+        for key, value in args.items():
+            if hasattr(self, key) and getattr(self, key) != value:
+                setattr(self, key, value)
+                changd = True
+        if changd:
+            self.terminate()
+            self.start()
     
     def run(self) -> None:
         import whisper

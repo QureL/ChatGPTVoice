@@ -1,8 +1,9 @@
 import pyttsx3, nltk
 from PySide6.QtCore import QThread
 from queue import Queue
+from utils.pipeline import AbstractPipeline
 
-class SpeakderPyTTSx3(QThread):
+class SpeakderPyTTSx3(QThread, AbstractPipeline):
     BASE_RATE = 140
 
     def __init__(self, speed=1) -> None:

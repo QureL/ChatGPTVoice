@@ -6,5 +6,3 @@ class AbstractPipeline:
     def put(self, msg):
         raise NotImplementedError()
 
-    def get(self):
-        raise NotImplementedError()

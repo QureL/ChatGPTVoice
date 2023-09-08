@@ -40,7 +40,7 @@ class GPTReuqestor:
                 changd = True
         if changd:
             self.chat_llm = ChatOpenAI(model_name=self.model, top_n=self.top_n, 
-                                        temperature=1, 
+                                        temperature=self.temperature, 
                                         openai_api_key=self.api_key, 
                                         openai_api_base=self.api_base)
 
