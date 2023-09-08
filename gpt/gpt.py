@@ -25,8 +25,15 @@ class GPTReuqestor(DynamicAttributes):
                                    openai_api_base=self.api_base)
         
 
-    def set_system_command(self, commands):
-        self._system_cmds = commands
+    def set_system_command(self, cmd):
+        self.initial_history()
+        if len(self.history.messages) == 0:
+            self.history.add_message(SystemMessage(content=cmd))
+        else:
+            messages = self.history.messages
+            messages[0] = HumanMessage(content=cmd)
+            self.history.clear()
+            for m in messages: self.history.add_message(m)
 
     def add_messages(self, messages):
         for msg in messages:
@@ -44,15 +51,13 @@ class GPTReuqestor(DynamicAttributes):
                                         openai_api_key=self.api_key, 
                                         openai_api_base=self.api_base)
 
-
-    def request(self, text):
+    def initial_history(self):
         if self.history is None:
             from gpt.loader import root_path
             self.history = FileChatMessageHistory(os.path.join(root_path, datetime.now().strftime("%m-%d-%H_%M_%S")))
-            for cmd in self._system_cmds:
-                role = list(cmd.keys())[0]
-                if role == 'system':
-                    self.history.add_message(SystemMessage(content=list(cmd.values())[0]))
+
+    def request(self, text):
+        self.initial_history()
 
         self.history.add_user_message(text)
         msgs = self.history.messages

@@ -43,6 +43,7 @@ class GPTChatController():
         self.speaker.terminate()
         self.stt_processor.terminate()
         self.gpt_bridge.terminate()
+        self.recorder.terminate()
         self.state = ControllerState.CONTROLLER_STOPPING
 
     def record_or_pause(self):
@@ -74,5 +75,8 @@ class GPTChatController():
 
     def pause_speaking(self):
         self.speaker.pause()
+
+    def set_session(self, name):
+        self.gpt_requestor.set_session(name)
 
     

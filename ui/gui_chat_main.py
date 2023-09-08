@@ -25,7 +25,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self.setupUi(self)
         self.mode = Mode.MODE_CHAT
         
-        #self.gpt_session_select_window = GPTSessionSelect(parent=self)
+        self.gpt_session_select_window = GPTSessionSelect(parent=self)
 
         self.controller = GPTChatController()
         self.config = GPTChatConfig()
@@ -72,6 +72,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
             self.voice_control_button.re_paint()
 
         self.voice_control_button.clicked.connect(voice_control_btn_callback)
+        self.tab1_load_session_btn.clicked.connect(self.gpt_session_select_window.show)
 
     # completing all config
     def update_configurations(self):
@@ -109,5 +110,8 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
 
     def release_resource(self):
         self.controller.stop_thread()
+
+    def set_session(self, name):
+        self.controller.set_session(name)
 
 

@@ -19,6 +19,7 @@ class BackgroudImport(QThread):
         import pyttsx3, nltk
         import pyaudio
         import torch
+        import whisper
         self.signal.emit("")
 
 class LoadingLabel(QLabel):

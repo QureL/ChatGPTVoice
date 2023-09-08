@@ -118,6 +118,11 @@ class Ui_gpt_chat_widget(object):
 
         self.horizontalLayout_3.addWidget(self.tab1_load_session_btn)
 
+        self.btn_setting = QPushButton(gpt_chat_widget)
+        self.btn_setting.setObjectName(u"btn_setting")
+
+        self.horizontalLayout_3.addWidget(self.btn_setting)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
@@ -191,6 +196,7 @@ class Ui_gpt_chat_widget(object):
 
         self.tab1_start_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u5f00\u59cb\u8bf4\u8bdd", None))
         self.tab1_load_session_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u8f7d\u5165\u4f1a\u8bdd", None))
+        self.btn_setting.setText(QCoreApplication.translate("gpt_chat_widget", u"\u66f4\u591a\u8bbe\u7f6e", None))
         self.tab1_send_corrected_text_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u53d1\u9001", None))
         self.tab1_speak_again_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u91cd\u64ad", None))
     # retranslateUi
