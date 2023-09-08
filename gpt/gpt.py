@@ -5,7 +5,7 @@ import error
 from datetime import datetime
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
-
+import openai
 
 
 class GPTReuqestor:
@@ -16,8 +16,13 @@ class GPTReuqestor:
         self.top_n = 1.5
         self._system_cmds = []
         self.model = "gpt-3.5-turbo"
+        self.api_base = openai.api_base
+        self.api_key = openai.api_key
         self.history = None
-        self.chat_llm = None
+        self.chat_llm = ChatOpenAI(model_name=self.model, top_n=self.top_n, 
+                                   temperature=1, 
+                                   openai_api_key=self.api_key, 
+                                   openai_api_base=self.api_base)
         
 
     def set_system_command(self, commands):
@@ -28,15 +33,16 @@ class GPTReuqestor:
             self.history.add_message(msg)
 
     def set_attribute(self, **args):
-        self.context_cnt = args['context_cnt']
-        self.temperature = args['temperature']
-        self.top_n = args['top_n']
-        self.model = args['model']
-        import openai
-        self.chat_llm = ChatOpenAI(model_name=self.model, top_n=self.top_n, 
-                                   temperature=1, 
-                                   openai_api_key=openai.api_key, 
-                                   openai_api_base=openai.api_base)
+        changd = False
+        for key, value in args.items():
+            if hasattr(self, key) and getattr(self, key) != value:
+                setattr(self, key, value)
+                changd = True
+        if changd:
+            self.chat_llm = ChatOpenAI(model_name=self.model, top_n=self.top_n, 
+                                        temperature=1, 
+                                        openai_api_key=self.api_key, 
+                                        openai_api_base=self.api_base)
 
 
     def request(self, text):
