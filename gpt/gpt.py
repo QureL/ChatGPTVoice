@@ -1,8 +1,7 @@
 from PySide6.QtCore import QThread
-import random
 import logging
 from langchain.memory import FileChatMessageHistory
-import os
+import error
 from datetime import datetime
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
@@ -11,15 +10,15 @@ from langchain.schema import HumanMessage, SystemMessage, AIMessage
 
 class GPTReuqestor:
 
-    def __init__(self, token: str, url: str, 
-                 model="gpt-3.5-turbo",
-                 context_cnt=7) -> None:
-        self.context_cnt = context_cnt
+    def __init__(self,) -> None:
+        self.context_cnt = 7
         self.temperature = 1
         self.top_n = 1.5
         self._system_cmds = []
+        self.model = "gpt-3.5-turbo"
         self.history = None
-        self.chat_llm = ChatOpenAI(model_name=model, top_n=self.top_n, temperature=1, openai_api_key=token, openai_api_base=url)
+        self.chat_llm = None
+        
 
     def set_system_command(self, commands):
         self._system_cmds = commands
@@ -28,10 +27,17 @@ class GPTReuqestor:
         for msg in messages:
             self.history.add_message(msg)
 
+    def set_attribute(self, **args):
+        self.context_cnt = args['context_cnt']
+        self.temperature = args['temperature']
+        self.top_n = args['top_n']
+        self.model = args['model']
+        import openai
+        self.chat_llm = ChatOpenAI(model_name=self.model, top_n=self.top_n, 
+                                   temperature=1, 
+                                   openai_api_key=openai.api_key, 
+                                   openai_api_base=openai.api_base)
 
-    def preload(text):
-        if text is None:
-            pass
 
     def request(self, text):
         if self.history is None:
@@ -46,8 +52,10 @@ class GPTReuqestor:
         msgs = self.history.messages
         if self.context_cnt != -1 and len(msgs) > self.context_cnt:
             msgs = msgs[:1] + msgs[1-self.context_cnt:]
-
-        resp = self.chat_llm(msgs)
+        try:
+            resp = self.chat_llm(msgs)
+        except:
+            raise error.BaseException()
         logging.debug("gpt resp=%s", resp.content)
         self.history.add_message(resp)
         return resp.content
@@ -91,4 +99,5 @@ class ConcurrentGPTBridge(QThread):
                 self.output_pipe.put(resp)
             except Exception as ex:
                 logging.error("gpt requestor", ex)
+                raise ex
             
