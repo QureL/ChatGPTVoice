@@ -23,6 +23,9 @@ class GPTChatController():
         self.recorder = AudioRecorder(self.audio_device_keeper, output_pipe=self.stt_processor, is_chat=True, secs=10)
         self.state = ControllerState.CONTROLLER_STOPPING
         self.config = GPTChatConfig()
+        speed = self.config.get_config(GPT_SPEAK_SPEED)
+        if speed != None:
+            self.speaker.set_speed(float(speed))
         
     
     def set_gpt_system_command(self, cmd):
@@ -90,5 +93,9 @@ class GPTChatController():
         context_cnt = self.config.get_config(GPT_CONTEXT_CNT)
         if context_cnt != None:
             self.gpt_requestor.set_attribute(context_cnt=int(context_cnt))
+
+        speed = self.config.get_config(GPT_SPEAK_SPEED)
+        if speed != None:
+            self.speaker.set_speed(float(speed))
 
     

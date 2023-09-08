@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QLabel,
-    QPushButton, QSizePolicy, QSpinBox, QTextEdit,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QDoubleSpinBox, QHBoxLayout,
+    QLabel, QPushButton, QSizePolicy, QSpinBox,
+    QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_GPT_Setting(object):
     def setupUi(self, GPT_Setting):
@@ -74,6 +74,22 @@ class Ui_GPT_Setting(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.label_4 = QLabel(GPT_Setting)
+        self.label_4.setObjectName(u"label_4")
+
+        self.horizontalLayout_5.addWidget(self.label_4)
+
+        self.doubleSpinBox_speak_speed = QDoubleSpinBox(GPT_Setting)
+        self.doubleSpinBox_speak_speed.setObjectName(u"doubleSpinBox_speak_speed")
+        self.doubleSpinBox_speak_speed.setValue(1.000000000000000)
+
+        self.horizontalLayout_5.addWidget(self.doubleSpinBox_speak_speed)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.btn_confirm = QPushButton(GPT_Setting)
@@ -102,6 +118,7 @@ class Ui_GPT_Setting(object):
         self.comboBox.setItemText(0, QCoreApplication.translate("GPT_Setting", u"gpt-3.5-turbo", None))
 
         self.label_3.setText(QCoreApplication.translate("GPT_Setting", u"\u9884\u7f6e\u6307\u4ee4", None))
+        self.label_4.setText(QCoreApplication.translate("GPT_Setting", u"AI\u8bed\u901f", None))
         self.btn_confirm.setText(QCoreApplication.translate("GPT_Setting", u"\u786e\u5b9a", None))
         self.btn_cancel.setText(QCoreApplication.translate("GPT_Setting", u"\u53d6\u6d88", None))
     # retranslateUi

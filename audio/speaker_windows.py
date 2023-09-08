@@ -16,7 +16,7 @@ class SpeakderPyTTSx3(QThread, AbstractPipeline, DynamicAttributes):
         super().__init__()
 
     def set_speed(self, speed):
-        self.rate = self.BASE_RATE* speed
+        self.rate = int(self.BASE_RATE* speed)
         self.engine.setProperty('rate', self.rate)
 
 

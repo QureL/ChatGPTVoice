@@ -25,6 +25,10 @@ class GPTSettingWindow(QWidget, Ui_GPT_Setting):
         if system_cmd != None:
             self.textEdit_system_cmd.setPlainText(system_cmd)
 
+        speed = self.config.get_config(GPT_SPEAK_SPEED)
+        if speed != None:
+            self.doubleSpinBox_speak_speed.setValue(float(speed))
+
     def bind_buttons(self):
 
         def confirm_callback():
@@ -33,6 +37,9 @@ class GPTSettingWindow(QWidget, Ui_GPT_Setting):
             )
             self.config.set_config(
                 GPT_SYSTEM_CMD, self.textEdit_system_cmd.toPlainText()
+            )
+            self.config.set_config(
+                GPT_SPEAK_SPEED, self.doubleSpinBox_speak_speed.value()
             )
             self.close()
             self.parent.reload_setting()
