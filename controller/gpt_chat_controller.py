@@ -5,6 +5,7 @@ from config.config import GPTChatConfig
 from processor.processor import STT_ProcessorLocal
 from gpt.gpt import GPTReuqestor, ConcurrentGPTBridge
 import enum
+import logging
 class ControllerState(enum.Enum):
     CONTROLLER_STOPPING = 0
     CONTROLLER_RUNNING = 1
@@ -17,7 +18,7 @@ class GPTChatController():
         self.speaker = SpeakderPyTTSx3()
         self.stt_processor = STT_ProcessorLocal(stt_model='base', stt_language='en')
         self.gpt_requestor = GPTReuqestor()
-        self.gpt_bridge = ConcurrentGPTBridge(self.gpt_requestor)
+        self.gpt_bridge = ConcurrentGPTBridge(self.gpt_requestor, speaker=self.speaker)
         self.recorder = AudioRecorder(self.audio_device_keeper, output_pipe=self.stt_processor, is_chat=True, secs=10)
         self.state = ControllerState.CONTROLLER_STOPPING
         
@@ -35,16 +36,18 @@ class GPTChatController():
         self.speaker.start()
         self.stt_processor.start()
         self.gpt_bridge.start()
+        self.recorder.start()
         self.state = ControllerState.CONTROLLER_RUNNING
 
     def stop_thread(self):
-        self.speaker.stop()
+        self.speaker.terminate()
         self.stt_processor.terminate()
-        self.gpt_bridge.stop()
+        self.gpt_bridge.terminate()
         self.state = ControllerState.CONTROLLER_STOPPING
 
     def record_or_pause(self):
         if self.state == ControllerState.CONTROLLER_STOPPING:
+            logging.info("start threading now")
             self.start_thread()
         else:
             self.recorder.switch()

@@ -21,6 +21,7 @@ class STT_ProcessorLocal(QThread, AbstractPipeline, DynamicAttributes):
 
 
     def put(self, msg):
+        logging.info("msg coming to whisper...")
         self.q.put(msg)
     
     def set_attribute(self, **args):

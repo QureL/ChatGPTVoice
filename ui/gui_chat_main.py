@@ -95,12 +95,14 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
     def bind_controller_callback(self):
 
         def gpt_message_trigger_callback(msg):
+            logging.info('gpt message comming=%s', msg)
             self.text_browser_signal.emit(msg)
 
         self.controller.bind_gpt_message_trigger(gpt_message_trigger_callback)
 
         def stt_message_trigger_callback(msg):
-            self.text_browser_signal.emit(msg)
+            logging.info('stt message comming=%s', msg)
+            self.correct_s2t_editor_signal.emit(msg)
 
         self.controller.bind_stt_message_trigger(stt_message_trigger_callback)
 

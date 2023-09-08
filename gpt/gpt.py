@@ -1,5 +1,5 @@
 from PySide6.QtCore import QThread
-import logging
+import logging, os
 from langchain.memory import FileChatMessageHistory
 import error
 from datetime import datetime
@@ -48,7 +48,7 @@ class GPTReuqestor(DynamicAttributes):
     def request(self, text):
         if self.history is None:
             from gpt.loader import root_path
-            self.history = FileChatMessageHistory(root_path, datetime.now().strftime("%m-%d-%H_%M_%S"))
+            self.history = FileChatMessageHistory(os.path.join(root_path, datetime.now().strftime("%m-%d-%H_%M_%S")))
             for cmd in self._system_cmds:
                 role = list(cmd.keys())[0]
                 if role == 'system':
@@ -68,7 +68,7 @@ class GPTReuqestor(DynamicAttributes):
     
     def set_session(self, session_name):
         from gpt.loader import root_path
-        self.history = FileChatMessageHistory(root_path, session_name)
+        self.history = FileChatMessageHistory(os.path.join(root_path, session_name))
 
 
 
@@ -80,12 +80,14 @@ class ConcurrentGPTBridge(QThread):
     def __init__(
         self,
         gpt_requestor,
+        speaker
     ) -> None:
         from queue import Queue
         self.gpt_requestor = gpt_requestor
         self.q = Queue()
         self.gpt_bridge_callback = None
         self._running = True
+        self.speaker = speaker
         super().__init__()
 
     def stop(self):
@@ -106,6 +108,7 @@ class ConcurrentGPTBridge(QThread):
                 resp = self.gpt_requestor.request(msg)
                 if self.gpt_bridge_callback:
                     self.gpt_bridge_callback(resp)
+                self.speaker.put(resp)
             except Exception as ex:
                 logging.error("gpt requestor", ex)
                 raise ex
