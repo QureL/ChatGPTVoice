@@ -141,7 +141,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_setting">
+      <widget class="QPushButton" name="btn_gpt_setting">
        <property name="text">
         <string>更多设置</string>
        </property>

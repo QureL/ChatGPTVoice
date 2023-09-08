@@ -14,7 +14,7 @@ class GPTReuqestor(DynamicAttributes):
         self.context_cnt = 7
         self.temperature = 1
         self.top_n = 1.5
-        self._system_cmds = []
+
         self.gpt_model = "gpt-3.5-turbo"
         self.api_base = openai.api_base
         self.api_key = openai.api_key
