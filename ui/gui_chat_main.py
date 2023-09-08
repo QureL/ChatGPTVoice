@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QWidget
 from const import *
 from gpt import gpt
 import logging, sys
-
+from ui.gui_chat_setting import GPTSettingWindow
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 from config.config import GPTChatConfig
 from config.const import *
@@ -26,6 +26,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self.mode = Mode.MODE_CHAT
         
         self.gpt_session_select_window = GPTSessionSelect(parent=self)
+        self.gpt_setting_window = GPTSettingWindow(self)
 
         self.controller = GPTChatController()
         self.config = GPTChatConfig()
@@ -74,10 +75,18 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self.voice_control_button.clicked.connect(voice_control_btn_callback)
         self.tab1_load_session_btn.clicked.connect(self.gpt_session_select_window.show)
 
+        def btn_gpt_setting_callback():
+            self.gpt_setting_window.render_ui()
+            self.gpt_setting_window.show()
+        self.btn_gpt_setting.clicked.connect(btn_gpt_setting_callback)
+
     # completing all config
     def update_configurations(self):
         input_device = self.tab1_select_input_combo.currentText()
         output_voice = self.tab1_select_outpt_combo.currentText()
+        system_cmd = self.config.get_config(GPT_SYSTEM_CMD)
+        if system_cmd != None:
+            self.controller.set_gpt_system_command(system_cmd)
 
         self.controller.set_attribute(
             voice_name=output_voice,
@@ -113,5 +122,9 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
 
     def set_session(self, name):
         self.controller.set_session(name)
+
+    def reload_setting(self):
+        self.controller.reload_setting()
+        
 
 

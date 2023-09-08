@@ -64,6 +64,7 @@ class GPTReuqestor(DynamicAttributes):
         if self.context_cnt != -1 and len(msgs) > self.context_cnt:
             msgs = msgs[:1] + msgs[1-self.context_cnt:]
         try:
+            logging.info("requestor send message=%s", msgs)
             resp = self.chat_llm(msgs)
         except:
             raise error.BaseException()
@@ -73,9 +74,14 @@ class GPTReuqestor(DynamicAttributes):
     
     def set_session(self, session_name):
         from gpt.loader import root_path
+        from config.config import GPTChatConfig
+        from config.const import GPT_SYSTEM_CMD
         self.history = FileChatMessageHistory(os.path.join(root_path, session_name))
-
-
+        messages = self.history.messages
+        if len(messages) > 0 and messages[0].type == 'system':
+            config = GPTChatConfig()
+            config.set_config(GPT_SYSTEM_CMD, messages[0].content)
+        
 
 from utils.pipeline import AbstractPipeline
 

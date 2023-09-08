@@ -6,6 +6,7 @@ from processor.processor import STT_ProcessorLocal
 from gpt.gpt import GPTReuqestor, ConcurrentGPTBridge
 import enum
 import logging
+from config.const import *
 class ControllerState(enum.Enum):
     CONTROLLER_STOPPING = 0
     CONTROLLER_RUNNING = 1
@@ -21,6 +22,7 @@ class GPTChatController():
         self.gpt_bridge = ConcurrentGPTBridge(self.gpt_requestor, speaker=self.speaker)
         self.recorder = AudioRecorder(self.audio_device_keeper, output_pipe=self.stt_processor, is_chat=True, secs=10)
         self.state = ControllerState.CONTROLLER_STOPPING
+        self.config = GPTChatConfig()
         
     
     def set_gpt_system_command(self, cmd):
@@ -78,5 +80,15 @@ class GPTChatController():
 
     def set_session(self, name):
         self.gpt_requestor.set_session(name)
+
+    def reload_setting(self):
+        
+        system_cmd = self.config.get_config(GPT_SYSTEM_CMD)
+        if len(system_cmd) > 0:
+            self.gpt_requestor.set_system_command(system_cmd)
+        
+        context_cnt = self.config.get_config(GPT_CONTEXT_CNT)
+        if context_cnt != None:
+            self.gpt_requestor.set_attribute(context_cnt=int(context_cnt))
 
     

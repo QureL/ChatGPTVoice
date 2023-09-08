@@ -6,10 +6,13 @@ from config.const import *
 class GPTSettingWindow(QWidget, Ui_GPT_Setting):
 
     def __init__(self, parent: QWidget ) -> None:
-        super().__init__(parent,)
+        super().__init__()
         self.setupUi(self)
+        self.parent = parent
 
         self.config = GPTChatConfig()
+        self.render_ui()
+        self.bind_buttons()
 
 
     def render_ui(self):
@@ -31,6 +34,8 @@ class GPTSettingWindow(QWidget, Ui_GPT_Setting):
             self.config.set_config(
                 GPT_SYSTEM_CMD, self.textEdit_system_cmd.toPlainText()
             )
+            self.close()
+            self.parent.reload_setting()
 
         self.btn_confirm.clicked.connect(confirm_callback)
 
