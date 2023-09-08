@@ -13,7 +13,7 @@ class VoiceControlButton(QAbstractButton):
         self.setMaximumSize(50, 50)  # 设置最大大小
 
         self.pixmap_audio_on = QPixmap("resources/speaker-on.svg")
-        self.pixmap_audio_off = QPixmap('resources/speaker-on.svg')
+        self.pixmap_audio_off = QPixmap('resources/speaker-off.svg')
         self.pixmap = self.pixmap_audio_on 
     
     def paintEvent(self, event):

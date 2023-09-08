@@ -12,7 +12,6 @@ class ControllerState(enum.Enum):
 
 class GPTChatController():
 
-
     def __init__(self, speaker_speed=1) -> None:
         self.audio_device_keeper = AudioDeviceKeepr()
         self.speaker = SpeakderPyTTSx3()
@@ -66,3 +65,11 @@ class GPTChatController():
         self.gpt_requestor.set_attribute(**args)
         self.stt_processor.set_attribute(**args)
         self.speaker.set_attribute(**args)
+        input_device = args.get('input_device', None)
+        if input_device:
+            self.recorder.select_device(input_device)
+
+    def pause_speaking(self):
+        self.speaker.pause()
+
+    

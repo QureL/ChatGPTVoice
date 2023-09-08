@@ -6,7 +6,7 @@ from const import *
 from gpt import gpt
 import logging, sys
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 from config.config import GPTChatConfig
 from config.const import *
 
@@ -30,7 +30,12 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self.controller = GPTChatController()
         self.config = GPTChatConfig()
         self.render_ui()
+        self.render_combo_boxes()
+        self.bind_buttons()
+        self.bind_signals()
+        self.bind_controller_callback()
 
+    # 画禁声按钮
     def render_ui(self):
         self.voice_control_button = VoiceControlButton(self)
         self.verticalLayout.insertWidget(0, self.voice_control_button)
@@ -41,9 +46,66 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self.tab1_select_outpt_combo.addItems(self.controller.display_audio_output_devices())
 
     def bind_buttons(self):
-        pass
+        #################################
+        def start_btn_clicked_callback():
+            self.update_configurations()
+            self.controller.record_or_pause()
+            if self.tab1_start_btn.text() == "开始说话":
+                self.tab1_start_btn.setText('停止说话')
+            else:
+                self.tab1_start_btn.setText('开始说话')
+        self.tab1_start_btn.clicked.connect(start_btn_clicked_callback)
+        #################################
+        def tab1_send_corrected_text_btn_callback():
+            txt = self.tab1_correct_s2t_editor.toPlainText()
+            if len(txt) == 0: return
+            self.controller.input_human_message(txt)
 
-    
+            self.tab1_correct_s2t_editor.clear()
+            txt = "<font color=\"#00FF00\">" + "[Human]" + txt + "</font>"
+            self.textBrowser.append(txt)
+        self.tab1_send_corrected_text_btn.clicked.connect(tab1_send_corrected_text_btn_callback)
 
+        #################################
+        def voice_control_btn_callback():
+            self.controller.pause_speaking()
+            self.voice_control_button.re_paint()
+
+        self.voice_control_button.clicked.connect(voice_control_btn_callback)
+
+    # completing all config
+    def update_configurations(self):
+        input_device = self.tab1_select_input_combo.currentText()
+        output_voice = self.tab1_select_outpt_combo.currentText()
+
+        self.controller.set_attribute(
+            voice_name=output_voice,
+            input_device=input_device
+        )
+
+    def bind_signals(self):
+        self.correct_s2t_editor_signal.connect(self.tab1_correct_s2t_editor.appendPlainText)
+        def text_browser_signal_callback(txt:str):
+            txt = "[GPT]" + txt
+            txt = "<font color=\"#FF0000\">" + txt + "</font>"
+            self.textBrowser.append(txt)
+        
+        self.text_browser_signal.connect(text_browser_signal_callback)
+
+    def bind_controller_callback(self):
+
+        def gpt_message_trigger_callback(msg):
+            self.text_browser_signal.emit(msg)
+
+        self.controller.bind_gpt_message_trigger(gpt_message_trigger_callback)
+
+        def stt_message_trigger_callback(msg):
+            self.text_browser_signal.emit(msg)
+
+        self.controller.bind_stt_message_trigger(stt_message_trigger_callback)
+
+
+    def release_resource(self):
+        self.controller.stop_thread()
 
 
