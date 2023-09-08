@@ -15,7 +15,7 @@ class GPTChatController():
 
     def __init__(self, speaker_speed=1) -> None:
         self.audio_device_keeper = AudioDeviceKeepr()
-        self.speaker = SpeakderPyTTSx3(speed=speaker_speed)
+        self.speaker = SpeakderPyTTSx3()
         self.stt_processor = STT_ProcessorLocal(stt_model='base', stt_language='en')
         self.gpt_requestor = GPTReuqestor()
         self.gpt_bridge = ConcurrentGPTBridge(self.gpt_requestor)

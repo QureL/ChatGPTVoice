@@ -9,6 +9,8 @@ class VoiceControlButton(QAbstractButton):
         super().__init__(parent)
 
         self.state = AUDIO_STATE_ON
+        self.setMinimumSize(50, 50)  # 设置最小大小
+        self.setMaximumSize(50, 50)  # 设置最大大小
 
         self.pixmap_audio_on = QPixmap("resources/speaker-on.svg")
         self.pixmap_audio_off = QPixmap('resources/speaker-on.svg')

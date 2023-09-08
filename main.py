@@ -16,7 +16,7 @@ class BackgroudImport(QThread):
         super().__init__()
 
     def run(self) -> None:
-        #import pyttsx3, nltk
+        import pyttsx3, nltk
         import pyaudio
         import torch
         self.signal.emit("")
@@ -48,15 +48,14 @@ class Entrance(QWidget, Ui_Form):
         self.horizontalLayout_loading.addWidget(label2)
         from const import Mode
         if index == 0:
-            pass
+            self.mode = Mode.MODE_CHAT
         else:
-            pass
-            self.thread = BackgroudImport()
-            self.thread.signal.connect(self.import_success_callback)
-            self.thread.start()
-            self.verticalLayout.addLayout(self.horizontalLayout_loading)
             self.mode = Mode.MODE_SUBTITLE
-            movie.start()
+        self.thread = BackgroudImport()
+        self.thread.signal.connect(self.import_success_callback)
+        self.thread.start()
+        self.verticalLayout.addLayout(self.horizontalLayout_loading)
+        movie.start()
             
             
 
@@ -67,11 +66,11 @@ class Entrance(QWidget, Ui_Form):
         self.close()
 
 
-
+import openai
+openai.api_base = 'https://api.api2gpt.com/v1'
+openai.api_key = 'AK-0a666086-617c-4bff-965f-04ebb9229974'
 
 app = QApplication([])
-from qt_material import apply_stylesheet
-#apply_stylesheet(app, theme="dark_blue.xml")
 window = Entrance()
 window.show()
 app.exec()

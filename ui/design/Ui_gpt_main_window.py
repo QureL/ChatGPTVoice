@@ -141,18 +141,11 @@ class Ui_gpt_chat_widget(object):
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.tab1_pause_speaker_btn = QPushButton(gpt_chat_widget)
-        self.tab1_pause_speaker_btn.setObjectName(u"tab1_pause_speaker_btn")
+        self.tab1_speak_again_btn = QPushButton(gpt_chat_widget)
+        self.tab1_speak_again_btn.setObjectName(u"tab1_speak_again_btn")
         sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(2)
-        sizePolicy3.setHeightForWidth(self.tab1_pause_speaker_btn.sizePolicy().hasHeightForWidth())
-        self.tab1_pause_speaker_btn.setSizePolicy(sizePolicy3)
-
-        self.verticalLayout.addWidget(self.tab1_pause_speaker_btn)
-
-        self.tab1_speak_again_btn = QPushButton(gpt_chat_widget)
-        self.tab1_speak_again_btn.setObjectName(u"tab1_speak_again_btn")
         sizePolicy3.setHeightForWidth(self.tab1_speak_again_btn.sizePolicy().hasHeightForWidth())
         self.tab1_speak_again_btn.setSizePolicy(sizePolicy3)
 
@@ -199,7 +192,6 @@ class Ui_gpt_chat_widget(object):
         self.tab1_start_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u5f00\u59cb\u8bf4\u8bdd", None))
         self.tab1_load_session_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u8f7d\u5165\u4f1a\u8bdd", None))
         self.tab1_send_corrected_text_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u53d1\u9001", None))
-        self.tab1_pause_speaker_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u6682\u505c", None))
         self.tab1_speak_again_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u91cd\u64ad", None))
     # retranslateUi
 
