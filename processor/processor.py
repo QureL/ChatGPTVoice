@@ -102,13 +102,13 @@ class Text2SpeechProccessor(QThread, AbstractPipeline):
 
 class S2TLocalServer(QThread, AbstractPipeline):
 
-    def __init__(self, model_name, language, signal) -> None:
+    def __init__(self, model_name, language, output_pipe) -> None:
         QThread.__init__(self)
         self.model_name = model_name
         self.language = language
         from queue import Queue
         self.q = Queue()
-        self.signal = signal
+        self.output_pipe = output_pipe
 
 
     def put(self, msg):
@@ -137,4 +137,4 @@ class S2TLocalServer(QThread, AbstractPipeline):
                 raise error.AITranscribeError()
             
             text2notify = "\n".join(text_arr)
-            self.signal.emit(text2notify)
+            self.output_pipe.put(text2notify)

@@ -27,7 +27,6 @@
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="actionsetting"/>
    </widget>
    <addaction name="menu"/>
   </widget>

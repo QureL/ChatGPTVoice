@@ -10,7 +10,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 from config.config import GPTChatConfig
 from config.const import *
 
-from processor.processor import Speech2TextProccessor, Text2SpeechProccessor, ResultCorrectPipeline, GPT2T2SProcessorPipeline
+from processor.processor import S2TLocalServer, Text2SpeechProccessor, ResultCorrectPipeline, GPT2T2SProcessorPipeline
 from PySide6.QtCore import Signal
 
 
@@ -36,6 +36,11 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self._initial_proceesor_recorder_speaker()
         self._initial_gpt_bridge()
     
+    def _initial_gpt_base_key(self):
+        import openai
+        openai.api_base = self.config.get_config(OPENAI_API_BASE)
+        openai.api_key = self.config.get_config(OPENAI_API_KEY)
+
     def _initial_signals(self): # called when initialing intercepts
         self.correct_s2t_editor_signal.connect(self.tab1_correct_s2t_editor.appendPlainText)
 
@@ -60,7 +65,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self.correct_s2t_pipe = ResultCorrectPipeline(self.correct_s2t_editor_signal, None)
 
 
-        self.s2t_proccssor = Speech2TextProccessor(ws_address=config['S2T_PROCESSOR_ADDRESS'],
+        self.s2t_proccssor = S2TLocalServer(ws_address=config['S2T_PROCESSOR_ADDRESS'],
                                                     output_pipe=self.correct_s2t_pipe)
         
         self.t2s_processor = Text2SpeechProccessor(ws_address=config['T2S_PROCESSOR_ADDRESS'],

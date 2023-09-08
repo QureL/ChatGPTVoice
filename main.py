@@ -50,6 +50,7 @@ class Entrance(QWidget, Ui_Form):
         if index == 0:
             pass
         else:
+            pass
             self.thread = BackgroudImport()
             self.thread.signal.connect(self.import_success_callback)
             self.thread.start()

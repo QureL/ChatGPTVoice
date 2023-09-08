@@ -40,7 +40,6 @@ class Ui_main_window(object):
         main_window.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menu.menuAction())
-        self.menu.addAction(self.actionsetting)
 
         self.retranslateUi(main_window)
 
