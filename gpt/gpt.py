@@ -6,20 +6,20 @@ from datetime import datetime
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
 import openai
+from utils.dynamic_attributes import DynamicAttributes
 
-
-class GPTReuqestor:
+class GPTReuqestor(DynamicAttributes):
 
     def __init__(self,) -> None:
         self.context_cnt = 7
         self.temperature = 1
         self.top_n = 1.5
         self._system_cmds = []
-        self.model = "gpt-3.5-turbo"
+        self.gpt_model = "gpt-3.5-turbo"
         self.api_base = openai.api_base
         self.api_key = openai.api_key
         self.history = None
-        self.chat_llm = ChatOpenAI(model_name=self.model, top_n=self.top_n, 
+        self.chat_llm = ChatOpenAI(model_name=self.gpt_model, top_n=self.top_n, 
                                    temperature=1, 
                                    openai_api_key=self.api_key, 
                                    openai_api_base=self.api_base)
@@ -39,7 +39,7 @@ class GPTReuqestor:
                 setattr(self, key, value)
                 changd = True
         if changd:
-            self.chat_llm = ChatOpenAI(model_name=self.model, top_n=self.top_n, 
+            self.chat_llm = ChatOpenAI(model_name=self.gpt_model, top_n=self.top_n, 
                                         temperature=self.temperature, 
                                         openai_api_key=self.api_key, 
                                         openai_api_base=self.api_base)
@@ -80,12 +80,11 @@ class ConcurrentGPTBridge(QThread):
     def __init__(
         self,
         gpt_requestor,
-        output_pipe: AbstractPipeline,
     ) -> None:
         from queue import Queue
         self.gpt_requestor = gpt_requestor
         self.q = Queue()
-        self.output_pipe = output_pipe
+        self.gpt_bridge_callback = None
         self._running = True
         super().__init__()
 
@@ -95,6 +94,9 @@ class ConcurrentGPTBridge(QThread):
     def put(self, msg):
         self.q.put(msg)
 
+    def set_callback(self, callback):
+        self.gpt_bridge_callback = callback
+
 
     def run(self) -> None:
         logging.debug("gpt bridge start...")
@@ -102,7 +104,8 @@ class ConcurrentGPTBridge(QThread):
             msg = self.q.get()
             try:
                 resp = self.gpt_requestor.request(msg)
-                self.output_pipe.put(resp)
+                if self.gpt_bridge_callback:
+                    self.gpt_bridge_callback(resp)
             except Exception as ex:
                 logging.error("gpt requestor", ex)
                 raise ex

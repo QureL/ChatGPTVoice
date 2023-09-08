@@ -2,13 +2,14 @@ import pyttsx3, nltk
 from PySide6.QtCore import QThread
 from queue import Queue
 from utils.pipeline import AbstractPipeline
-
-class SpeakderPyTTSx3(QThread, AbstractPipeline):
+from utils.dynamic_attributes import DynamicAttributes
+class SpeakderPyTTSx3(QThread, AbstractPipeline, DynamicAttributes):
     BASE_RATE = 140
 
-    def __init__(self, speed=1) -> None:
+    def __init__(self,) -> None:
         self.engine = pyttsx3.init()
-        self.set_speed(speed)
+        self.speaker_speed=1
+        self.voice_name = ''
         self.q = Queue()
         self._running = True
         self._speaking = True
@@ -18,15 +19,27 @@ class SpeakderPyTTSx3(QThread, AbstractPipeline):
         self.rate = self.BASE_RATE* speed
         self.engine.setProperty('rate', self.rate)
 
-    def select_voice(self, device_name):
+
+    def select_voice(self, voice_name):
         voices = self.engine.getProperty('voices')
         for v in voices:
-            if v.name == device_name:
+            if v.name == voice_name:
+                self.voice_name = voice_name
                 self.engine.setProperty('voice', v.id)
 
     def show_voices(self):
         voices = self.engine.getProperty('voices')
         return [v.name for v in voices]
+    
+    def set_attribute(self, **kwargs):
+        speaker_speed = kwargs.get('speaker_speed', None)
+        voice_name = kwargs.get('voice_name', None)
+
+        if speaker_speed != None:
+            self.set_speed(speaker_speed)
+        if voice_name != None:
+            self.select_voice(voice_name)
+
 
     def run(self) -> None:
         while self._running:
