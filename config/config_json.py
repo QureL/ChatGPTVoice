@@ -22,6 +22,8 @@ class Config(BaseModel):
     gpt_sys_cmd: str = Field(default="")
     gpt_model_name: str = Field(default="gpt-3.5-turbo")
     gpt_model_list: List[str] = Field(default=["gpt-3.5-turbo"])
+    gpt_temperature: float = Field(default=1.0)
+    gpt_top_n: float = Field(default=1.5)
 
     # whisper
     stt_model_name: str = Field(default="base")

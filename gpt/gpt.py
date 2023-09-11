@@ -4,65 +4,65 @@ from langchain.memory import FileChatMessageHistory
 import error
 from datetime import datetime
 from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage, SystemMessage, AIMessage
-import openai
-from utils.dynamic_attributes import DynamicAttributes
+from langchain.schema import HumanMessage, SystemMessage
+from config.config_json import load_config
 
-class GPTReuqestor(DynamicAttributes):
+class GPTReuqestor:
 
-    def __init__(self,) -> None:
-        self.context_cnt = 7
-        self.temperature = 1
-        self.top_n = 1.5
-
-        self.gpt_model = "gpt-3.5-turbo"
-        self.api_base = openai.api_base
-        self.api_key = openai.api_key
+    def __init__(self, ) -> None:
+        self.config = load_config()
         self.history = None
-        self.chat_llm = ChatOpenAI(model_name=self.gpt_model, top_n=self.top_n, 
-                                   temperature=1, 
-                                   openai_api_key=self.api_key, 
-                                   openai_api_base=self.api_base)
-        
+        self.__load_llm()
+
+    def __load_llm(self):
+        self.chat_llm = ChatOpenAI(model_name=self.config.gpt_model_name,
+                                   top_n=self.config.gpt_top_n,
+                                   temperature=self.config.gpt_temperature,
+                                   openai_api_key=self.config.openai_api_key,
+                                   openai_api_base=self.config.openai_api_base)
 
     def set_system_command(self, cmd):
-        self.initial_history()
+        self.config.gpt_sys_cmd = cmd
+        self.__initial_history()
         if len(self.history.messages) == 0:
             self.history.add_message(SystemMessage(content=cmd))
         else:
             messages = self.history.messages
             messages[0] = HumanMessage(content=cmd)
             self.history.clear()
-            for m in messages: self.history.add_message(m)
+            for m in messages:
+                self.history.add_message(m)
 
-    def add_messages(self, messages):
-        for msg in messages:
-            self.history.add_message(msg)
+    def set_attributes(self,
+                       openai_api_base=None,
+                       openai_api_key=None,
+                       gpt_context_cnt=None,
+                       gpt_model_name=None,
+                       gpt_temperature=None,
+                       gpt_top_n=None):
+        self.config.openai_api_base = openai_api_base or self.config.openai_api_base
+        self.config.openai_api_key = openai_api_key or self.config.openai_api_key
+        self.config.gpt_context_cnt = gpt_context_cnt or self.config.gpt_context_cnt
+        self.config.gpt_model_name = gpt_model_name or self.config.gpt_model_name
+        self.config.gpt_temperature = gpt_temperature or self.config.gpt_temperature
+        self.config.gpt_top_n = gpt_top_n or self.config.gpt_top_n
+        self.__load_llm()
 
-    def set_attribute(self, **args):
-        changd = False
-        for key, value in args.items():
-            if hasattr(self, key) and getattr(self, key) != value:
-                setattr(self, key, value)
-                changd = True
-        if changd:
-            self.chat_llm = ChatOpenAI(model_name=self.gpt_model, top_n=self.top_n, 
-                                        temperature=self.temperature, 
-                                        openai_api_key=self.api_key, 
-                                        openai_api_base=self.api_base)
-
-    def initial_history(self):
+    def __initial_history(self):
         if self.history is None:
             from gpt.loader import root_path
-            self.history = FileChatMessageHistory(os.path.join(root_path, datetime.now().strftime("%m-%d-%H_%M_%S")))
+            self.history = FileChatMessageHistory(
+                os.path.join(root_path,
+                             datetime.now().strftime("%m-%d-%H_%M_%S")))
 
     def request(self, text):
-        self.initial_history()
+        self.__initial_history()
 
         self.history.add_user_message(text)
         msgs = self.history.messages
-        if self.context_cnt != -1 and len(msgs) > self.context_cnt:
-            msgs = msgs[:1] + msgs[1-self.context_cnt:]
+        if self.config.gpt_context_cnt != -1 and len(
+                msgs) > self.config.gpt_context_cnt:
+            msgs = msgs[:1] + msgs[1 - self.config.gpt_context_cnt:]
         try:
             logging.info("requestor send message=%s", msgs)
             resp = self.chat_llm(msgs)
@@ -71,28 +71,20 @@ class GPTReuqestor(DynamicAttributes):
         logging.debug("gpt resp=%s", resp.content)
         self.history.add_message(resp)
         return resp.content
-    
+
     def set_session(self, session_name):
         from gpt.loader import root_path
-        from config.config import GPTChatConfig
-        from config.const import GPT_SYSTEM_CMD
-        self.history = FileChatMessageHistory(os.path.join(root_path, session_name))
+        self.history = FileChatMessageHistory(
+            os.path.join(root_path, session_name))
         messages = self.history.messages
         if len(messages) > 0 and messages[0].type == 'system':
-            config = GPTChatConfig()
-            config.set_config(GPT_SYSTEM_CMD, messages[0].content)
-        
+            self.config.gpt_sys_cmd = messages[0].content
 
-from utils.pipeline import AbstractPipeline
 
 
 class ConcurrentGPTBridge(QThread):
 
-    def __init__(
-        self,
-        gpt_requestor,
-        speaker
-    ) -> None:
+    def __init__(self, gpt_requestor, speaker) -> None:
         from queue import Queue
         self.gpt_requestor = gpt_requestor
         self.q = Queue()
@@ -110,7 +102,6 @@ class ConcurrentGPTBridge(QThread):
     def set_callback(self, callback):
         self.gpt_bridge_callback = callback
 
-
     def run(self) -> None:
         logging.debug("gpt bridge start...")
         while self._running:
@@ -123,4 +114,3 @@ class ConcurrentGPTBridge(QThread):
             except Exception as ex:
                 logging.error("gpt requestor", ex)
                 raise ex
-            
