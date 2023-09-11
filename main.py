@@ -67,9 +67,6 @@ class Entrance(QWidget, Ui_Form):
         self.close()
 
 
-import openai
-openai.api_base = 'https://api.api2gpt.com/v1'
-openai.api_key = 'AK-0a666086-617c-4bff-965f-04ebb9229974'
 
 app = QApplication([])
 

@@ -3,16 +3,15 @@ from ui.gui_gpt_session import GPTSessionSelect
 from PySide6.QtWidgets import QWidget
 
 from const import *
-from gpt import gpt
 import logging, sys
 from ui.gui_chat_setting import GPTSettingWindow
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-from config.config import GPTChatConfig
 from config.const import *
 
 from PySide6.QtCore import Signal
 from controller.gpt_chat_controller import GPTChatController
 from ui.custom.voice_control_button import VoiceControlButton
+from config.config_json import dump_config
 
 class GPTWidget(QWidget, Ui_gpt_chat_widget):
 
@@ -113,6 +112,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
 
 
     def release_resource(self):
+        dump_config()
         self.controller.stop_thread()
 
 
