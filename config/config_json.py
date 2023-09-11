@@ -3,7 +3,7 @@ import os
 from typing import List
 import const
 from error import FileWriteError, FileReadError
-
+import logging
 config_base_path = os.path.join(os.path.expanduser("~"), 'AppData', 'Local', 
                                 f'{const.APP_NAME}',
                                 f'{const.APP_NAME}.json')
@@ -48,14 +48,16 @@ def load_config():
             try:
                 with open(config_base_path, mode='w') as f:
                     c = Config()
-                    f.write(c.model_validate_json())
-            except:
+                    f.write(c.model_dump_json())
+            except Exception as ex:
+                logging.error(ex)
                 raise FileWriteError(message="配置文件写入失败")
         else:
             try:
                 with open(config_base_path, mode='r', encoding='utf-8') as f:
                     c = Config.model_validate_json(f.read())
-            except:
+            except Exception as ex:
+                logging.error(ex)
                 raise FileReadError(message="配置文件读取失败")
     return c
 
@@ -63,8 +65,9 @@ def dump_config():
     load_config()
     try:
         with open(config_base_path, mode='w') as f:
-            f.write(c.model_validate_json())
-    except:
+            f.write(c.model_dump_json())
+    except Exception as ex:
+        logging.error(ex)
         raise FileWriteError(message="配置文件写入失败")
 
 
