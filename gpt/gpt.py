@@ -9,6 +9,7 @@ from config.config_json import load_config
 
 class GPTReuqestor:
 
+    __instance = None
     def __init__(self, ) -> None:
         self.config = load_config()
         self.history = None
@@ -20,6 +21,12 @@ class GPTReuqestor:
                                    temperature=self.config.gpt_temperature,
                                    openai_api_key=self.config.openai_api_key,
                                    openai_api_base=self.config.openai_api_base)
+    
+    @classmethod
+    def get_instance(cls):
+        if cls.__instance is None:
+            cls.__instance = GPTReuqestor()
+        return cls.__instance
 
     def set_system_command(self, cmd):
         self.config.gpt_sys_cmd = cmd
