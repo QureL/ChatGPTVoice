@@ -2,11 +2,10 @@ import pyttsx3, nltk
 from PySide6.QtCore import QThread
 from queue import Queue
 from utils.pipeline import AbstractPipeline
-from utils.dynamic_attributes import DynamicAttributes
 from config.config_json import load_config
 
 
-class SpeakderPyTTSx3(QThread, AbstractPipeline, DynamicAttributes):
+class SpeakderPyTTSx3(QThread, AbstractPipeline):
     BASE_RATE = 140
 
     def __init__(self, ) -> None:
