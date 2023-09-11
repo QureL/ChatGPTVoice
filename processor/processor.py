@@ -2,21 +2,19 @@ from const import *
 import error
 from PySide6.QtCore import QThread
 import logging
-
+from queue import Queue
+from config.config_json import load_config
 from websocket import WebSocketApp, ABNF
 import json
 from utils.pipeline import AbstractPipeline
-from utils.dynamic_attributes import DynamicAttributes
 
 
-class STT_ProcessorLocal(QThread, AbstractPipeline, DynamicAttributes):
+class STT_ProcessorLocal(QThread, AbstractPipeline):
 
-    def __init__(self, stt_model, stt_language) -> None:
+    def __init__(self) -> None:
         QThread.__init__(self)
-        self.stt_model = stt_model
-        self.stt_language = stt_language
-        from queue import Queue
         self.q = Queue()
+        self.config = load_config()
         self.stt_callback = None
 
 
@@ -24,12 +22,15 @@ class STT_ProcessorLocal(QThread, AbstractPipeline, DynamicAttributes):
         logging.info("msg coming to whisper...")
         self.q.put(msg)
     
-    def set_attribute(self, **args):
+    def set_attributes(self, stt_model_name=None,
+                       stt_language=None):
         changd = False
-        for key, value in args.items():
-            if hasattr(self, key) and getattr(self, key) != value:
-                setattr(self, key, value)
-                changd = True
+        if stt_model_name and stt_model_name != self.config.stt_model_name:
+            self.config.stt_model_name = stt_model_name 
+            changd = True
+        if stt_language and stt_language != self.config.stt_language:
+            self.config.stt_language = stt_language
+            changd = True
         if changd:
             if self.isRunning():
                 self.terminate()
@@ -42,8 +43,8 @@ class STT_ProcessorLocal(QThread, AbstractPipeline, DynamicAttributes):
         import whisper
         import numpy as np
 
-        model = whisper.load_model(self.stt_model)
-        logging.warning("model load success... model=%s", self.stt_model)
+        model = whisper.load_model(self.config.stt_model_name)
+        logging.warning("model load success... model=%s", self.config.stt_model_name)
         while True:
             msg = self.q.get()
             try:

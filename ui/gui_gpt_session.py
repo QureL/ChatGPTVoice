@@ -1,9 +1,7 @@
-from typing import Optional
-import PySide6.QtCore
-import PySide6.QtGui
 from ui.design.Ui_gpt_session_select_window import Ui_gpt_session_select
 from ui.design.Ui_gpt_session_show import Ui_gpt_show_session
-from PySide6.QtWidgets import QMainWindow, QWidget
+from PySide6.QtWidgets import QWidget
+from gpt.gpt import GPTReuqestor
 from gpt.loader import display_history_sessions, load_messages
 
 class GPTShowSession(QWidget, Ui_gpt_show_session):
@@ -27,7 +25,9 @@ class GPTSessionSelect(QWidget, Ui_gpt_session_select):
 
         def confirm_btn_callback():
             session = self.listWidget.currentItem().text()
-            self.parent.set_session(session)
+            if session and len(session) > 0: 
+                gpt_requstor = GPTReuqestor.get_instance()
+                gpt_requstor.set_session(session)
             self.close()
 
         self.confirm_btn.clicked.connect(confirm_btn_callback)

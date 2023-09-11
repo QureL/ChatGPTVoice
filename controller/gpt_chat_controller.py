@@ -19,15 +19,12 @@ class GPTChatController():
     def __init__(self,) -> None:
         self.audio_device_keeper = AudioDeviceKeepr()
         self.speaker = SpeakderPyTTSx3()
-        self.stt_processor = STT_ProcessorLocal(stt_model='base', stt_language='en')
-        self.gpt_requestor = GPTReuqestor()
+        self.stt_processor = STT_ProcessorLocal()
+        self.gpt_requestor = GPTReuqestor.get_instance()
         self.gpt_bridge = ConcurrentGPTBridge(self.gpt_requestor, speaker=self.speaker)
         self.recorder = AudioRecorder(self.audio_device_keeper, output_pipe=self.stt_processor, is_chat=True, secs=10)
         self.state = ControllerState.CONTROLLER_STOPPING
-        self.config = GPTChatConfig()
-        speed = self.config.get_config(GPT_SPEAK_SPEED)
-        if speed != None:
-            self.speaker.set_speed(float(speed))
+
         
     @classmethod
     def get_instance(cls):
@@ -35,13 +32,11 @@ class GPTChatController():
             cls.__instance = GPTChatController()
         return cls.__instance
 
-    def set_gpt_system_command(self, cmd):
-        self.gpt_requestor.set_system_command(cmd)
 
     def display_audio_input_devices(self):
         return self.audio_device_keeper.display_devices(input=True)
 
-    def display_audio_output_devices(self):
+    def display_audio_voices(self):
         return self.speaker.show_voices()
 
     def start_thread(self):
@@ -76,33 +71,19 @@ class GPTChatController():
     def bind_gpt_message_trigger(self, callback):
         self.gpt_bridge.set_callback(callback)
 
+    # gpt 相关属性直接调用 GPTRequestor，不单独封装
+    def set_attributes_speaker(self, speaker_speed=None, speaker_voice=None):
+        self.speaker.set_attributes(speaker_speed, speaker_voice)
+    
+    def set_attributes_stt(self, stt_model_name=None, stt_language=None):
+        self.stt_processor.set_attributes(stt_model_name, stt_language)
 
-    def set_attribute(self, **args):
-        self.gpt_requestor.set_attribute(**args)
-        self.stt_processor.set_attribute(**args)
-        self.speaker.set_attribute(**args)
-        input_device = args.get('input_device', None)
-        if input_device:
-            self.recorder.select_device(input_device)
+    def set_attributes_recorder(self, recorder_input_device):
+        self.recorder.select_device(recorder_input_device)
 
     def pause_speaking(self):
         self.speaker.pause()
 
-    def set_session(self, name):
-        self.gpt_requestor.set_session(name)
 
-    def reload_setting(self):
-        
-        system_cmd = self.config.get_config(GPT_SYSTEM_CMD)
-        if len(system_cmd) > 0:
-            self.gpt_requestor.set_system_command(system_cmd)
-        
-        context_cnt = self.config.get_config(GPT_CONTEXT_CNT)
-        if context_cnt != None:
-            self.gpt_requestor.set_attribute(context_cnt=int(context_cnt))
-
-        speed = self.config.get_config(GPT_SPEAK_SPEED)
-        if speed != None:
-            self.speaker.set_speed(float(speed))
 
     
