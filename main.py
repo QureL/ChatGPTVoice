@@ -72,6 +72,14 @@ openai.api_base = 'https://api.api2gpt.com/v1'
 openai.api_key = 'AK-0a666086-617c-4bff-965f-04ebb9229974'
 
 app = QApplication([])
+
+
+from PySide6.QtCore import QFile
+styleFile = QFile( "./css/MacOS.css" )
+styleFile.open(QFile.ReadOnly)
+app.setStyleSheet(styleFile.readAll().toStdString())
+
+
 window = Entrance()
 window.show()
 app.exec()
