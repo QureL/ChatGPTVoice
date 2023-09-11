@@ -26,26 +26,31 @@ class Ui_gpt_session_select(object):
         self.listWidget = QListWidget(gpt_session_select)
         self.listWidget.setObjectName(u"listWidget")
         self.listWidget.setGeometry(QRect(30, 20, 241, 301))
-        self.widget = QWidget(gpt_session_select)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(290, 60, 77, 86))
-        self.verticalLayout = QVBoxLayout(self.widget)
+        self.layoutWidget = QWidget(gpt_session_select)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(290, 60, 77, 116))
+        self.verticalLayout = QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.view_btn = QPushButton(self.widget)
+        self.view_btn = QPushButton(self.layoutWidget)
         self.view_btn.setObjectName(u"view_btn")
 
         self.verticalLayout.addWidget(self.view_btn)
 
-        self.confirm_btn = QPushButton(self.widget)
+        self.confirm_btn = QPushButton(self.layoutWidget)
         self.confirm_btn.setObjectName(u"confirm_btn")
 
         self.verticalLayout.addWidget(self.confirm_btn)
 
-        self.cancel_btn = QPushButton(self.widget)
+        self.cancel_btn = QPushButton(self.layoutWidget)
         self.cancel_btn.setObjectName(u"cancel_btn")
 
         self.verticalLayout.addWidget(self.cancel_btn)
+
+        self.rename_btn = QPushButton(self.layoutWidget)
+        self.rename_btn.setObjectName(u"rename_btn")
+
+        self.verticalLayout.addWidget(self.rename_btn)
 
 
         self.retranslateUi(gpt_session_select)
@@ -58,5 +63,6 @@ class Ui_gpt_session_select(object):
         self.view_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u67e5\u770b", None))
         self.confirm_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u786e\u8ba4", None))
         self.cancel_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u53d6\u6d88", None))
+        self.rename_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u91cd\u547d\u540d", None))
     # retranslateUi
 

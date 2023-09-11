@@ -1,6 +1,4 @@
 import sys, os
-from typing import Optional
-
 from PySide6.QtCore import QThread, Signal
 
 sys.path.append(os.getcwd())
@@ -18,8 +16,8 @@ class BackgroudImport(QThread):
     def run(self) -> None:
         import pyttsx3, nltk
         import pyaudio
-        import torch
         import whisper
+        import langchain
         self.signal.emit("")
 
 class LoadingLabel(QLabel):

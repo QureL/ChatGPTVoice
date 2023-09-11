@@ -23,13 +23,13 @@
     </rect>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>290</x>
      <y>60</y>
      <width>77</width>
-     <height>86</height>
+     <height>116</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -51,6 +51,13 @@
      <widget class="QPushButton" name="cancel_btn">
       <property name="text">
        <string>取消</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="rename_btn">
+      <property name="text">
+       <string>重命名</string>
       </property>
      </widget>
     </item>

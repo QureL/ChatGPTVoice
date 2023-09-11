@@ -1,7 +1,5 @@
-from controller.controller import Controller
 from audio.audio import AudioDeviceKeepr, AudioRecorder
 from audio.speaker_windows import SpeakderPyTTSx3
-from config.config import GPTChatConfig
 from processor.processor import STT_ProcessorLocal
 from gpt.gpt import GPTReuqestor, ConcurrentGPTBridge
 import enum
