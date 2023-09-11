@@ -78,11 +78,12 @@ class GPTChatController():
     def set_attributes_stt(self, stt_model_name=None, stt_language=None):
         self.stt_processor.set_attributes(stt_model_name, stt_language)
 
+    def set_attributes_recorder(self, recorder_input_device):
+        self.recorder.select_device(recorder_input_device)
+
     def pause_speaking(self):
         self.speaker.pause()
 
-    def set_session(self, name):
-        self.gpt_requestor.set_session(name)
 
 
     

@@ -28,8 +28,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         self.gpt_session_select_window = GPTSessionSelect(parent=self)
         self.gpt_setting_window = GPTSettingWindow(self)
 
-        self.controller = GPTChatController()
-        self.config = GPTChatConfig()
+        self.controller = GPTChatController.get_instance()
         self.render_ui()
         self.render_combo_boxes()
         self.bind_buttons()
@@ -44,7 +43,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
 
     def render_combo_boxes(self):
         self.tab1_select_input_combo.addItems(self.controller.display_audio_input_devices())
-        self.tab1_select_outpt_combo.addItems(self.controller.display_audio_output_devices())
+        self.tab1_select_outpt_combo.addItems(self.controller.display_audio_voices())
 
     def bind_buttons(self):
         #################################
@@ -80,18 +79,13 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
             self.gpt_setting_window.show()
         self.btn_gpt_setting.clicked.connect(btn_gpt_setting_callback)
 
-    # completing all config
+    # 配置speaker声音，recorder输入设备
     def update_configurations(self):
         input_device = self.tab1_select_input_combo.currentText()
         output_voice = self.tab1_select_outpt_combo.currentText()
-        system_cmd = self.config.get_config(GPT_SYSTEM_CMD)
-        if system_cmd != None:
-            self.controller.set_gpt_system_command(system_cmd)
 
-        self.controller.set_attribute(
-            voice_name=output_voice,
-            input_device=input_device
-        )
+        self.controller.set_attributes_speaker(speaker_voice=output_voice)
+        self.controller.set_attributes_recorder(recorder_input_device=input_device)
 
     def bind_signals(self):
         self.correct_s2t_editor_signal.connect(self.tab1_correct_s2t_editor.appendPlainText)
@@ -102,6 +96,7 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
         
         self.text_browser_signal.connect(text_browser_signal_callback)
 
+    # 提供给controller的页面修改回调
     def bind_controller_callback(self):
 
         def gpt_message_trigger_callback(msg):
@@ -120,11 +115,5 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
     def release_resource(self):
         self.controller.stop_thread()
 
-    def set_session(self, name):
-        self.controller.set_session(name)
-
-    def reload_setting(self):
-        self.controller.reload_setting()
-        
 
 
