@@ -4,8 +4,6 @@ from PySide6.QtCore import QThread
 import logging
 from queue import Queue
 from config.config_json import load_config
-from websocket import WebSocketApp, ABNF
-import json
 from utils.pipeline import AbstractPipeline
 
 

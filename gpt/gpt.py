@@ -4,7 +4,7 @@ from langchain.memory import FileChatMessageHistory
 import error
 from datetime import datetime
 from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage, SystemMessage
+from langchain.schema import SystemMessage
 from config.config_json import load_config
 
 class GPTReuqestor:
@@ -14,6 +14,7 @@ class GPTReuqestor:
         self.config = load_config()
         self.history = None
         self.__load_llm()
+        self.set_system_command(self.config.gpt_sys_cmd)
 
     def __load_llm(self):
         self.chat_llm = ChatOpenAI(model_name=self.config.gpt_model_name,
@@ -29,13 +30,14 @@ class GPTReuqestor:
         return cls.__instance
 
     def set_system_command(self, cmd):
+        if len(cmd) == 0: return
         self.config.gpt_sys_cmd = cmd
         self.__initial_history()
         if len(self.history.messages) == 0:
             self.history.add_message(SystemMessage(content=cmd))
         else:
             messages = self.history.messages
-            messages[0] = HumanMessage(content=cmd)
+            messages[0] = SystemMessage(content=cmd)
             self.history.clear()
             for m in messages:
                 self.history.add_message(m)

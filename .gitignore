@@ -9,3 +9,4 @@ dist/
 main.build
 main.dist
 nuitka*
+venv/
