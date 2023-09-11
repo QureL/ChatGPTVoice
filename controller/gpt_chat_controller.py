@@ -14,7 +14,9 @@ class ControllerState(enum.Enum):
 
 class GPTChatController():
 
-    def __init__(self, speaker_speed=1) -> None:
+    __instance = None
+
+    def __init__(self,) -> None:
         self.audio_device_keeper = AudioDeviceKeepr()
         self.speaker = SpeakderPyTTSx3()
         self.stt_processor = STT_ProcessorLocal(stt_model='base', stt_language='en')
@@ -27,7 +29,12 @@ class GPTChatController():
         if speed != None:
             self.speaker.set_speed(float(speed))
         
-    
+    @classmethod
+    def get_instance(cls):
+        if cls.__instance is None:
+            cls.__instance = GPTChatController()
+        return cls.__instance
+
     def set_gpt_system_command(self, cmd):
         self.gpt_requestor.set_system_command(cmd)
 
