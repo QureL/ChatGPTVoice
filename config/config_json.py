@@ -37,6 +37,7 @@ class Config(BaseModel):
     speaker_speed: float = Field(default=1.0)
     recorder_input_device: str = Field(default="")
     speaker_output_device: str = Field(default="")
+    speaker_voice: str = Field(default="")
 
 
 c = None
