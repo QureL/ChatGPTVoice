@@ -2,6 +2,10 @@
 import pyaudio
 import error
 import logging
+from config.config_json import load_config
+from PySide6.QtCore import QThread, QMutex, QTimer
+from queue import Queue
+
 S2T_RATE = 16000 
 T2S_RATE = 24_000 # 帧率可以调节语速
 RATE = 16000
@@ -9,18 +13,22 @@ CHANNELS = 1
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 
-from PySide6.QtCore import QThread, QMutex, QTimer
-from queue import Queue
-
 
 class AudioDeviceKeepr:
 
     def __init__(self) -> None:
         self.p = pyaudio.PyAudio()
         self.devices = {}
-        self._build_device_list()
+        self.__build_device_list()
+    
+    __instance = None
+    @classmethod
+    def get_instance(cls):
+        if cls.__instance is None:
+            cls.__instance = AudioDeviceKeepr()
+        return cls.__instance
 
-    def _build_device_list(self):
+    def __build_device_list(self):
         for i in range(self.p.get_device_count()):
             devInfo = self.p.get_device_info_by_index(i)
             if devInfo['hostApi'] == 0:
@@ -46,6 +54,7 @@ class AudioDeviceKeepr:
 
 
 class AudioSpeaker(QThread):
+    __instance = None
 
     def __init__(self, keeper: AudioDeviceKeepr, speed=1) -> None:
         self.keeper = keeper
@@ -58,6 +67,12 @@ class AudioSpeaker(QThread):
         self._speaking = True
         self._last_speech = None
         super().__init__()
+
+    @classmethod
+    def get_instance(cls):
+        if cls.__instance is None:
+            cls.__instance = AudioSpeaker(AudioDeviceKeepr.get_instance())
+        return cls.__instance
 
     # must called before start!
     def select_device(self, device_name):
