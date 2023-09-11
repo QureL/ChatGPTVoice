@@ -15,3 +15,9 @@ class AITranscribeError(BaseException):
 
 class GPTRequestorError(BaseException):
     message = u"GPT请求失败"
+
+class FileWriteError(BaseException):
+    message = u"文件写入失败"
+
+class FileReadError(BaseException):
+    message = u"文件读取失败"
