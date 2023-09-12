@@ -4,10 +4,12 @@ from typing import List
 import const
 from error import FileWriteError, FileReadError
 import logging
-config_base_path = os.path.join(os.path.expanduser("~"), 'AppData', 'Local', 
-                                f'{const.APP_NAME}',
-                                f'{const.APP_NAME}.json')
+config_base_dir = os.path.join(os.path.expanduser("~"), 'AppData', 'Local', f'{const.APP_NAME}')
 
+if not os.path.exists(config_base_dir):
+    os.makedirs(config_base_dir)
+
+config_base_path = os.path.join(config_base_dir, f'{const.APP_NAME}.json')
 
 class Config(BaseModel):
     
@@ -54,7 +56,7 @@ def load_config():
                 raise FileWriteError(message="配置文件写入失败")
         else:
             try:
-                with open(config_base_path, mode='r', encoding='utf-8') as f:
+                with open(config_base_path, mode='r', encoding='gb2312') as f:
                     c = Config.model_validate_json(f.read())
             except Exception as ex:
                 logging.error(ex)

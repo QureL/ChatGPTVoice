@@ -3,7 +3,7 @@ from PySide6.QtCore import QThread
 from queue import Queue
 from utils.pipeline import AbstractPipeline
 from config.config_json import load_config
-
+import logging
 
 class SpeakderPyTTSx3(QThread, AbstractPipeline):
     BASE_RATE = 140
@@ -19,8 +19,8 @@ class SpeakderPyTTSx3(QThread, AbstractPipeline):
     def set_attributes(self, speaker_speed=None, speaker_voice=None):
         self.config.speaker_speed = speaker_speed or self.config.speaker_speed
         self.config.speaker_voice = speaker_voice or self.config.speaker_voice
-
         rate = int(self.BASE_RATE * self.config.speaker_speed)
+        logging.info(f'set speaker property, speed={speaker_speed} rate={rate}')
         self.engine.setProperty('rate', rate)
 
         voices = self.engine.getProperty('voices')
