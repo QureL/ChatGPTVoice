@@ -4,10 +4,12 @@ from typing import List
 import const
 from error import FileWriteError, FileReadError
 import logging
-config_base_path = os.path.join(os.path.expanduser("~"), 'AppData', 'Local', 
-                                f'{const.APP_NAME}',
-                                f'{const.APP_NAME}.json')
+config_base_dir = os.path.join(os.path.expanduser("~"), 'AppData', 'Local', f'{const.APP_NAME}')
 
+if not os.path.exists(config_base_dir):
+    os.makedirs(config_base_dir)
+
+config_base_path = os.path.join(config_base_dir, f'{const.APP_NAME}.json')
 
 class Config(BaseModel):
     
