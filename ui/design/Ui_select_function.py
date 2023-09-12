@@ -24,22 +24,21 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(336, 151)
-        self.widget = QWidget(Form)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(70, 30, 180, 81))
-        self.verticalLayout = QVBoxLayout(self.widget)
+        self.layoutWidget = QWidget(Form)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(70, 30, 180, 81))
+        self.verticalLayout = QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setSizeConstraint(QLayout.SetFixedSize)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.label = QLabel(self.widget)
+        self.label = QLabel(self.layoutWidget)
         self.label.setObjectName(u"label")
 
         self.horizontalLayout.addWidget(self.label)
 
-        self.select_funcion_combo = QComboBox(self.widget)
-        self.select_funcion_combo.addItem("")
+        self.select_funcion_combo = QComboBox(self.layoutWidget)
         self.select_funcion_combo.addItem("")
         self.select_funcion_combo.setObjectName(u"select_funcion_combo")
 
@@ -50,7 +49,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.pushButton = QPushButton(self.widget)
+        self.pushButton = QPushButton(self.layoutWidget)
         self.pushButton.setObjectName(u"pushButton")
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -71,10 +70,9 @@ class Ui_Form(object):
     # setupUi
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"OfflineSubtitle", None))
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"horn", None))
         self.label.setText(QCoreApplication.translate("Form", u"\u9009\u62e9\u529f\u80fd", None))
         self.select_funcion_combo.setItemText(0, QCoreApplication.translate("Form", u"gpt\u8bed\u97f3\u804a\u5929", None))
-        self.select_funcion_combo.setItemText(1, QCoreApplication.translate("Form", u"\u7cfb\u7edf\u58f0\u97f3\u79bb\u7ebf\u5b57\u5e55", None))
 
         self.pushButton.setText(QCoreApplication.translate("Form", u"\u786e\u5b9a", None))
     # retranslateUi

@@ -2,3 +2,11 @@ __pycache__/
 data/
 config.yaml
 .vscode
+build/
+dist/
+*.exe
+*.spec
+main.build
+main.dist
+nuitka*
+venv/

@@ -12,3 +12,12 @@ class DeviceNotSelected(BaseException):
 
 class AITranscribeError(BaseException):
     message = u"语音转文字失败"
+
+class GPTRequestorError(BaseException):
+    message = u"GPT请求失败"
+
+class FileWriteError(BaseException):
+    message = u"文件写入失败"
+
+class FileReadError(BaseException):
+    message = u"文件读取失败"

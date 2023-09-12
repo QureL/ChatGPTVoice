@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>589</width>
-    <height>355</height>
+    <width>620</width>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>589</width>
+     <width>620</width>
      <height>22</height>
     </rect>
    </property>
@@ -27,7 +27,6 @@
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="actionsetting"/>
    </widget>
    <addaction name="menu"/>
   </widget>

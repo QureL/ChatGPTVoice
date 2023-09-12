@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>horn</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -40,11 +40,6 @@
         <item>
          <property name="text">
           <string>gpt语音聊天</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>系统声音离线字幕</string>
          </property>
         </item>
        </widget>

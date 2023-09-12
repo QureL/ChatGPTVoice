@@ -2,127 +2,47 @@ from const import *
 import error
 from PySide6.QtCore import QThread
 import logging
-
-from websocket import WebSocketApp, ABNF
-import json
+from queue import Queue
+from config.config_json import load_config
 from utils.pipeline import AbstractPipeline
 
-class ResultCorrectPipeline(AbstractPipeline):
-    def __init__(self, signal, output_pipe) -> None:
-        self.signal = signal
-        self.output_pipe = output_pipe
 
-    def put(self, msg):
-        self.signal.emit(msg)
-        #self.output_pipe.put(msg)
+class STT_ProcessorLocal(QThread, AbstractPipeline):
 
-class GPT2T2SProcessorPipeline:
-    def __init__(self, signal, output_pipe) -> None:
-        self.signal = signal
-        self.output_pipe = output_pipe
-    
-    def put(self, msg):
-        self.signal.emit(msg)
-        self.output_pipe.put(msg)
-
-
-class Speech2TextProccessor(QThread, AbstractPipeline):
-
-    def __init__(self, ws_address,
-                 output_pipe) -> None:
-        self.address = ws_address
+    def __init__(self) -> None:
         QThread.__init__(self)
-        self.output_pipe = output_pipe
-
-    def _initial_ws(self):
-
-        def on_message(ws, message):
-            result = json.loads(message)
-            text_arr = [item['text'] for item in result['segments']]
-            text2notify = "\n".join(text_arr)
-            self.output_pipe.put(text2notify)
-
-        def on_error(ws, error):
-            raise error
-
-        def on_close(ws, close_status_code, close_msg):
-            logging.warning("### closed ###", close_status_code, close_msg)
-
-        def on_open(ws):
-            logging.debug("Opened connection")
-
-        self.ws = WebSocketApp(self.address,
-                               on_open=on_open,
-                               on_message=on_message,
-                               on_error=on_error,
-                               on_close=on_close)
-
-    def run(self) -> None:
-        self._initial_ws()
-        self.ws.run_forever()
-
-    def put(self, msg):
-        self.ws.send(msg, ABNF.OPCODE_BINARY)
-
-
-class Text2SpeechProccessor(QThread, AbstractPipeline):
-
-    def __init__(self, ws_address, output_pipe) -> None:
-        self.address = ws_address
-        QThread.__init__(self)
-        self.output_pipe = output_pipe
-
-    def _initial_ws(self):
-
-        def on_message(ws, message):
-            self.output_pipe.put(message)
-
-        def on_error(ws, error):
-            raise error
-
-        def on_close(ws, close_status_code, close_msg):
-            logging.warning("### closed ###", close_status_code, close_msg)
-
-        def on_open(ws):
-            logging.debug("Opened connection")
-
-        self.ws = WebSocketApp(self.address,
-                               on_open=on_open,
-                               on_message=on_message,
-                               on_error=on_error,
-                               on_close=on_close)
-
-    def run(self) -> None:
-        self._initial_ws()
-        self.ws.run_forever()
-
-    def put(self, msg):
-        self.ws.send(msg)
-
-
-class S2TLocalServer(QThread, AbstractPipeline):
-
-    def __init__(self, model_name, language, signal) -> None:
-        QThread.__init__(self)
-        self.model_name = model_name
-        self.language = language
-        from queue import Queue
         self.q = Queue()
-        self.signal = signal
+        self.config = load_config()
+        self.stt_callback = None
 
 
     def put(self, msg):
+        logging.info("msg coming to whisper...")
         self.q.put(msg)
     
-    def get(self):
-        return super().get()
+    def set_attributes(self, stt_model_name=None,
+                       stt_language=None):
+        changd = False
+        if stt_model_name and stt_model_name != self.config.stt_model_name:
+            self.config.stt_model_name = stt_model_name 
+            changd = True
+        if stt_language and stt_language != self.config.stt_language:
+            self.config.stt_language = stt_language
+            changd = True
+        if changd:
+            if self.isRunning():
+                self.terminate()
+                self.start()
+    
+    def set_callback(self, callback):
+        self.stt_callback = callback
     
     def run(self) -> None:
         import whisper
         import numpy as np
 
-        model = whisper.load_model(self.model_name)
-        logging.warning("model load success... model=%s", self.model_name)
+        model = whisper.load_model(self.config.stt_model_name)
+        logging.warning("model load success... model=%s", self.config.stt_model_name)
         while True:
             msg = self.q.get()
             try:
@@ -137,4 +57,5 @@ class S2TLocalServer(QThread, AbstractPipeline):
                 raise error.AITranscribeError()
             
             text2notify = "\n".join(text_arr)
-            self.signal.emit(text2notify)
+            if self.stt_callback:
+                self.stt_callback(text2notify)

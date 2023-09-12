@@ -1,6 +1,4 @@
 import sys, os
-from typing import Optional
-
 from PySide6.QtCore import QThread, Signal
 
 sys.path.append(os.getcwd())
@@ -16,9 +14,10 @@ class BackgroudImport(QThread):
         super().__init__()
 
     def run(self) -> None:
-        #import pyttsx3, nltk
+        import pyttsx3, nltk
         import pyaudio
-        import torch
+        import whisper
+        import langchain
         self.signal.emit("")
 
 class LoadingLabel(QLabel):
@@ -42,20 +41,20 @@ class Entrance(QWidget, Ui_Form):
         label = LoadingLabel(self)
         label.setMovie(movie)
         label.adjustSize()
-        label2 = QLabel("LOADING...", self)
+        label2 = QLabel("loading...", self)
         self.horizontalLayout_loading = QHBoxLayout()
         self.horizontalLayout_loading.addWidget(label)
         self.horizontalLayout_loading.addWidget(label2)
         from const import Mode
         if index == 0:
-            pass
+            self.mode = Mode.MODE_CHAT
         else:
-            self.thread = BackgroudImport()
-            self.thread.signal.connect(self.import_success_callback)
-            self.thread.start()
-            self.verticalLayout.addLayout(self.horizontalLayout_loading)
             self.mode = Mode.MODE_SUBTITLE
-            movie.start()
+        self.thread = BackgroudImport()
+        self.thread.signal.connect(self.import_success_callback)
+        self.thread.start()
+        self.verticalLayout.addLayout(self.horizontalLayout_loading)
+        movie.start()
             
             
 
@@ -67,10 +66,15 @@ class Entrance(QWidget, Ui_Form):
 
 
 
-
 app = QApplication([])
-from qt_material import apply_stylesheet
-#apply_stylesheet(app, theme="dark_blue.xml")
+
+
+from PySide6.QtCore import QFile
+styleFile = QFile( "./css/MacOS.css" )
+styleFile.open(QFile.ReadOnly)
+app.setStyleSheet(styleFile.readAll().toStdString())
+
+
 window = Entrance()
 window.show()
 app.exec()

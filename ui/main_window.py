@@ -11,18 +11,23 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         self.setupUi(self)
 
-        self.initial()
+        #self.initial()
         if mode == Mode.MODE_SUBTITLE:
             from ui.gui_subtitle_main import SubtitleMain
             self.subtitle_main = SubtitleMain()
             self.setCentralWidget(self.subtitle_main)
+        else:
+            from ui.gui_chat_main import GPTWidget
+            self.gpt_chat_main = GPTWidget()
+            self.setCentralWidget(self.gpt_chat_main)
             
 
     
-    def initial(self):
-        from ui.setting_window import SettingWindow
-        self.setting_window = SettingWindow()
-        self.actionsetting.triggered.connect(self.setting_window.show)
+    #def initial(self):
+    #    from ui.setting_window import SettingWindow
+    #    self.setting_window = SettingWindow()
+    #    self.actionsetting.triggered.connect(self.setting_window.show)
 
     def closeEvent(self, event) -> None:
-        self.subtitle_main.release_resource()
+        #self.subtitle_main.release_resource()
+        self.gpt_chat_main.release_resource()
