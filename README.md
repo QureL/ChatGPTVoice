@@ -3,8 +3,10 @@
 
 
 效果演示：
-
 [![](https://i.ytimg.com/vi/kg4KivftTps/maxresdefault.jpg)](https://youtu.be/kg4KivftTps?si=LZI5ShF5fhIqFjWj "")
+
+滑稽的中文效果：
+[![](https://i.ytimg.com/vi/9svpySx0J8A/maxresdefault.jpg)](https://youtu.be/9svpySx0J8A "")
 
 ## 环境需求
 
@@ -23,7 +25,7 @@ https://github.com/QureL/horn.git
 cd horn
 ```
 
-创建并激活虚拟环境
+创建并激活虚拟环境（powershell）
 
 ```powershell
 mkdir venv
@@ -45,5 +47,19 @@ pip install -r requirements.txt
 python ./main.py
 ```
 
+## whisper远程执行
 
+本人有一台12G显存的Linux主机，一台孱弱的1650笔记本，为了能跑whisper large model，可以考虑whisper放在Linux上，客户端和whisper使用ws通信：
+
+Linux上：
+
+```
+python scrpit/whisper_server.py --model large-v2
+```
+
+客户端：
+
+```
+python .\main.py --whisper_mode remote --whisper_address ws://{你的Linux IP}:3001
+```
 
