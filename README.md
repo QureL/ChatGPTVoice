@@ -1,7 +1,7 @@
 # horn
 基于[whisper](https://openai.com/research/whisper)和PyQT(PySide6)的实时GPT聊天工具
 
-![](.\img\Snipaste_2023-09-12_16-33-16.png)
+![](./img/Snipaste_2023-09-12_16-33-16.png)
 
 
 ## 环境需求
