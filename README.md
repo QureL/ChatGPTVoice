@@ -1,8 +1,10 @@
 # horn
-基于[whisper](https://openai.com/research/whisper)和PyQT(PySide6)的实时GPT聊天工具
+基于[whisper](https://openai.com/research/whisper)和PyQT(PySide6)的实时GPT聊天工具，支持历史会话
 
-![](./img/Snipaste_2023-09-12_16-33-16.png)
 
+效果演示：
+
+[![](https://i.ytimg.com/vi/kg4KivftTps/maxresdefault.jpg)](https://youtu.be/kg4KivftTps?si=LZI5ShF5fhIqFjWj "")
 
 ## 环境需求
 
@@ -42,4 +44,6 @@ pip install -r requirements.txt
 ```
 python ./main.py
 ```
+
+
 
