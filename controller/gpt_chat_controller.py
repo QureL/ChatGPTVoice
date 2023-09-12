@@ -1,10 +1,11 @@
 from audio.audio import AudioDeviceKeepr, AudioRecorder
 from audio.speaker_windows import SpeakderPyTTSx3
-from processor.processor import STT_ProcessorLocal
+from processor.processor import STT_ProcessorLocal, STT_ProcessorRemote
 from gpt.gpt import GPTReuqestor, ConcurrentGPTBridge
 import enum
 import logging
 from config.const import *
+from config.config_json import load_config
 class ControllerState(enum.Enum):
     CONTROLLER_STOPPING = 0
     CONTROLLER_RUNNING = 1
@@ -15,9 +16,10 @@ class GPTChatController():
     __instance = None
 
     def __init__(self,) -> None:
+        config = load_config()
         self.audio_device_keeper = AudioDeviceKeepr()
         self.speaker = SpeakderPyTTSx3()
-        self.stt_processor = STT_ProcessorLocal()
+        self.stt_processor = STT_ProcessorLocal() if config.stt_mode == 'local' else STT_ProcessorRemote()
         self.gpt_requestor = GPTReuqestor.get_instance()
         self.gpt_bridge = ConcurrentGPTBridge(self.gpt_requestor, speaker=self.speaker)
         self.recorder = AudioRecorder(self.audio_device_keeper, output_pipe=self.stt_processor, is_chat=True, secs=10)

@@ -1,16 +1,18 @@
 # horn
-基于[whisper](https://openai.com/research/whisper)和PyQT(PySide6)的实时GPT聊天工具
+基于[whisper](https://openai.com/research/whisper)和PyQT(PySide6)的实时GPT聊天工具，支持历史会话
 
-![](./img/Snipaste_2023-09-12_16-33-16.png)
 
+效果演示：
+
+[![](https://i.ytimg.com/vi/kg4KivftTps/maxresdefault.jpg)](https://youtu.be/kg4KivftTps?si=LZI5ShF5fhIqFjWj "")
 
 ## 环境需求
 
 ### 显卡
 
-运行`whisper base model`所需显存在1G以下，效果尚可，无杂音口语教准的情况下准确率能在90%。whisper的`large model`占用显存在8G以上，很不亲民，但是效果非常好，我这糟糕的英语口语都能基本识别对，而且对长语音、断断续续的也有很棒的处理效果。
+运行`whisper base model`所需显存在1G以下，效果尚可，无杂音、口语准确的情况下准确率能在90%。whisper的`large model`占用显存在8G以上，但是效果非常好，我这糟糕的英语口语都能基本识别对，而且对长语音、断断续续的也有很棒的处理效果。
 
-对于，base model识别错误的情况，可以在GUI直接修改识别结果。
+总体来说，base model比较亲民，但是有条件尽量上large model。对于识别错误的情况，可以在GUI直接修改识别结果。
 
 ## 安装
 
@@ -42,4 +44,6 @@ pip install -r requirements.txt
 ```
 python ./main.py
 ```
+
+
 

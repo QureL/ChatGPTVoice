@@ -1,6 +1,7 @@
 import sys, os
 from PySide6.QtCore import QThread, Signal
-
+import argparse
+from config.config_json import load_config
 sys.path.append(os.getcwd())
 
 from ui.design.Ui_select_function import Ui_Form
@@ -16,7 +17,8 @@ class BackgroudImport(QThread):
     def run(self) -> None:
         import pyttsx3, nltk
         import pyaudio
-        import whisper
+        config = load_config()
+        if config.stt_mode == 'local': import whisper
         import langchain
         self.signal.emit("")
 
@@ -65,6 +67,17 @@ class Entrance(QWidget, Ui_Form):
         self.close()
 
 
+parser = argparse.ArgumentParser(description='Input values for horn')
+parser.add_argument('--whisper_mode', dest='whisper_mode',
+                    help="whisper mode, local/remote", default='local')
+parser.add_argument('--whisper_address', dest='whisper_address',
+                    help='if mode=remote, then set you whisper remote websocket address here',
+                    default="")
+args = parser.parse_args()
+config = load_config()
+if args.whisper_mode != 'local':
+    config.stt_mode = 'remote'
+    config.stt_remote_address = args.whisper_address
 
 app = QApplication([])
 
