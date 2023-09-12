@@ -56,7 +56,7 @@ def load_config():
                 raise FileWriteError(message="配置文件写入失败")
         else:
             try:
-                with open(config_base_path, mode='r', encoding='utf-8') as f:
+                with open(config_base_path, mode='r', encoding='gb2312') as f:
                     c = Config.model_validate_json(f.read())
             except Exception as ex:
                 logging.error(ex)

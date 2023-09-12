@@ -18,7 +18,6 @@ class GPTReuqestor:
 
     def __load_llm(self):
         self.chat_llm = ChatOpenAI(model_name=self.config.gpt_model_name,
-                                   top_n=self.config.gpt_top_n,
                                    temperature=self.config.gpt_temperature,
                                    openai_api_key=self.config.openai_api_key,
                                    openai_api_base=self.config.openai_api_base)
