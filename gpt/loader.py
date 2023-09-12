@@ -7,7 +7,8 @@ root_path = os.path.join(
     'data',
     'messages',
 )
-
+if not os.path.exists(root_path):
+    os.makedirs(root_path)
 
 def display_history_sessions():
     for root, _, fs in os.walk(root_path):

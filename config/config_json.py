@@ -16,8 +16,8 @@ class Config(BaseModel):
     tts_remote_address: str = Field(default="")
 
     # gpt
-    openai_api_base: str = Field(default="https://api.api2gpt.com/v1")
-    openai_api_key: str = Field(default="AK-0a666086-617c-4bff-965f-04ebb9229974")
+    openai_api_base: str = Field(default="https://api.openai.com/v1")
+    openai_api_key: str = Field(default="SET YOUR OPENAI KEY HERE")
     gpt_context_cnt: int = Field(default=10)
     gpt_sys_cmd: str = Field(default="")
     gpt_model_name: str = Field(default="gpt-3.5-turbo")

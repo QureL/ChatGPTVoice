@@ -41,7 +41,7 @@ class Entrance(QWidget, Ui_Form):
         label = LoadingLabel(self)
         label.setMovie(movie)
         label.adjustSize()
-        label2 = QLabel("LOADING...", self)
+        label2 = QLabel("loading...", self)
         self.horizontalLayout_loading = QHBoxLayout()
         self.horizontalLayout_loading.addWidget(label)
         self.horizontalLayout_loading.addWidget(label2)
