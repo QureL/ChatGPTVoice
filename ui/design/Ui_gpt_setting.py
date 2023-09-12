@@ -16,14 +16,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDoubleSpinBox, QHBoxLayout,
-    QLabel, QPushButton, QSizePolicy, QSpinBox,
-    QTextEdit, QVBoxLayout, QWidget)
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QSpinBox, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_GPT_Setting(object):
     def setupUi(self, GPT_Setting):
         if not GPT_Setting.objectName():
             GPT_Setting.setObjectName(u"GPT_Setting")
-        GPT_Setting.resize(385, 259)
+        GPT_Setting.resize(385, 264)
         self.verticalLayout = QVBoxLayout(GPT_Setting)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout = QHBoxLayout()
@@ -59,6 +59,36 @@ class Ui_GPT_Setting(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.label_5 = QLabel(GPT_Setting)
+        self.label_5.setObjectName(u"label_5")
+
+        self.horizontalLayout_6.addWidget(self.label_5)
+
+        self.lineEdit_api_base = QLineEdit(GPT_Setting)
+        self.lineEdit_api_base.setObjectName(u"lineEdit_api_base")
+
+        self.horizontalLayout_6.addWidget(self.lineEdit_api_base)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_6)
+
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.label_6 = QLabel(GPT_Setting)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_7.addWidget(self.label_6)
+
+        self.lineEdit_api_key = QLineEdit(GPT_Setting)
+        self.lineEdit_api_key.setObjectName(u"lineEdit_api_key")
+
+        self.horizontalLayout_7.addWidget(self.lineEdit_api_key)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_7)
+
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.label_3 = QLabel(GPT_Setting)
@@ -83,6 +113,7 @@ class Ui_GPT_Setting(object):
 
         self.doubleSpinBox_speak_speed = QDoubleSpinBox(GPT_Setting)
         self.doubleSpinBox_speak_speed.setObjectName(u"doubleSpinBox_speak_speed")
+        self.doubleSpinBox_speak_speed.setSingleStep(0.050000000000000)
         self.doubleSpinBox_speak_speed.setValue(1.000000000000000)
 
         self.horizontalLayout_5.addWidget(self.doubleSpinBox_speak_speed)
@@ -114,9 +145,11 @@ class Ui_GPT_Setting(object):
     def retranslateUi(self, GPT_Setting):
         GPT_Setting.setWindowTitle(QCoreApplication.translate("GPT_Setting", u"GPT\u8bbe\u7f6e", None))
         self.label.setText(QCoreApplication.translate("GPT_Setting", u"\u4e0a\u4e0b\u6587\u6570\u91cf", None))
-        self.label_2.setText(QCoreApplication.translate("GPT_Setting", u"\u6a21\u578b", None))
+        self.label_2.setText(QCoreApplication.translate("GPT_Setting", u"GPT\u6a21\u578b", None))
         self.comboBox.setItemText(0, QCoreApplication.translate("GPT_Setting", u"gpt-3.5-turbo", None))
 
+        self.label_5.setText(QCoreApplication.translate("GPT_Setting", u"GPT API BASE", None))
+        self.label_6.setText(QCoreApplication.translate("GPT_Setting", u"GPT API KEY", None))
         self.label_3.setText(QCoreApplication.translate("GPT_Setting", u"\u9884\u7f6e\u6307\u4ee4", None))
         self.label_4.setText(QCoreApplication.translate("GPT_Setting", u"AI\u8bed\u901f", None))
         self.btn_confirm.setText(QCoreApplication.translate("GPT_Setting", u"\u786e\u5b9a", None))

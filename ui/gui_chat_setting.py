@@ -21,12 +21,16 @@ class GPTSettingWindow(QWidget, Ui_GPT_Setting):
         self.spinBox_context_cnt.setValue(config.gpt_context_cnt)
         self.textEdit_system_cmd.setPlainText(config.gpt_sys_cmd)
         self.doubleSpinBox_speak_speed.setValue(config.speaker_speed)
+        self.lineEdit_api_base.setText(config.openai_api_base)
+        self.lineEdit_api_key.setText(config.openai_api_key)
 
     def bind_buttons(self):
         gpt_requestor = GPTReuqestor.get_instance()
         controller = GPTChatController.get_instance()
         def confirm_callback():
             gpt_requestor.set_attributes(
+                openai_api_base=self.lineEdit_api_base.text(),
+                openai_api_key=self.lineEdit_api_key.text(),
                 gpt_context_cnt=self.spinBox_context_cnt.value(),
             )
             gpt_requestor.set_system_command(self.textEdit_system_cmd.toPlainText())
