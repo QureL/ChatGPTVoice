@@ -7,7 +7,7 @@ class BaseException(Exception):
         super().__init__(*args)
 
 
-class DeviceNotSelected(BaseException):
+class DeviceNotSelectedError(BaseException):
     message = u"设备未选择"
 
 class AITranscribeError(BaseException):

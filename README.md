@@ -21,7 +21,7 @@
 克隆项目
 
 ```bash
-https://github.com/QureL/horn.git
+git clone https://github.com/QureL/horn.git
 cd horn
 ```
 
