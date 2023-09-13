@@ -80,7 +80,7 @@ class AudioSpeaker(QThread):
 
     def run(self) -> None:
         if self.device_index is None:
-            raise error.DeviceNotSelected()
+            raise error.DeviceNotSelectedError()
         self.stream = self.keeper.p.open(input_device_index=self.device_index,
                                             format=FORMAT,
                                             channels=CHANNELS,
@@ -149,7 +149,7 @@ class AudioRecorder(QThread):
 
     def run(self) -> None:
         if self.device_index is None:
-            raise error.DeviceNotSelected()
+            raise error.DeviceNotSelectedError()
         self._has_recorded = True
         logging.info("self.device_index=%d", self.device_index)
         stream = self.keeper.p.open(input_device_index=self.device_index,
