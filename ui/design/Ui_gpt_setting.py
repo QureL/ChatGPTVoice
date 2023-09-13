@@ -121,6 +121,22 @@ class Ui_GPT_Setting(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_5)
 
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.label_7 = QLabel(GPT_Setting)
+        self.label_7.setObjectName(u"label_7")
+
+        self.horizontalLayout_8.addWidget(self.label_7)
+
+        self.doubleSpinBox_temperature = QDoubleSpinBox(GPT_Setting)
+        self.doubleSpinBox_temperature.setObjectName(u"doubleSpinBox_temperature")
+        self.doubleSpinBox_temperature.setSingleStep(0.100000000000000)
+
+        self.horizontalLayout_8.addWidget(self.doubleSpinBox_temperature)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_8)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.btn_confirm = QPushButton(GPT_Setting)
@@ -152,6 +168,7 @@ class Ui_GPT_Setting(object):
         self.label_6.setText(QCoreApplication.translate("GPT_Setting", u"GPT API KEY", None))
         self.label_3.setText(QCoreApplication.translate("GPT_Setting", u"\u9884\u7f6e\u6307\u4ee4", None))
         self.label_4.setText(QCoreApplication.translate("GPT_Setting", u"AI\u8bed\u901f", None))
+        self.label_7.setText(QCoreApplication.translate("GPT_Setting", u"gpt temperature", None))
         self.btn_confirm.setText(QCoreApplication.translate("GPT_Setting", u"\u786e\u5b9a", None))
         self.btn_cancel.setText(QCoreApplication.translate("GPT_Setting", u"\u53d6\u6d88", None))
     # retranslateUi

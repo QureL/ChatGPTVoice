@@ -23,6 +23,7 @@ class GPTSettingWindow(QWidget, Ui_GPT_Setting):
         self.doubleSpinBox_speak_speed.setValue(config.speaker_speed)
         self.lineEdit_api_base.setText(config.openai_api_base)
         self.lineEdit_api_key.setText(config.openai_api_key)
+        self.doubleSpinBox_temperature.setValue(config.gpt_temperature)
 
     def bind_buttons(self):
         gpt_requestor = GPTReuqestor.get_instance()
@@ -32,6 +33,7 @@ class GPTSettingWindow(QWidget, Ui_GPT_Setting):
                 openai_api_base=self.lineEdit_api_base.text(),
                 openai_api_key=self.lineEdit_api_key.text(),
                 gpt_context_cnt=self.spinBox_context_cnt.value(),
+                gpt_temperature=self.doubleSpinBox_temperature.value(),
             )
             gpt_requestor.set_system_command(self.textEdit_system_cmd.toPlainText())
             controller.set_attributes_speaker(
