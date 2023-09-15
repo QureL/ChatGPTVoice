@@ -65,3 +65,11 @@ python scrpit/whisper_server.py --model large-v2
 python .\main.py --whisper_mode remote --whisper_address ws://{你的Linux IP}:3001
 ```
 
+## TODO LIST
+
+- [ ] 国际化支持
+- [ ] 聊天ui优化
+- [ ] 导入其他TTS
+- [ ] 消息编辑
+- [ ] 本地langchain向量库
+
