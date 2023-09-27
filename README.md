@@ -12,6 +12,20 @@
 
 python >= 3.10
 
+### 操作系统
+
+### win10
+
+本人环境，可行
+
+### Linux
+
+未测试过Linux desktop环境下的表现，理论可行，tts相关可能需要注意，参照 https://github.com/nateshmbhat/pyttsx3#installation-
+
+### Mac
+
+参照Linux，理论可行。
+
 ### 显卡
 
 运行`whisper base model`所需显存在1G以下，效果尚可，无杂音、口语准确的情况下准确率能在90%。whisper的`large model`占用显存在8G以上，但是效果非常好，我这糟糕的英语口语都能基本识别对，而且对长语音、断断续续的也有很棒的处理效果。
