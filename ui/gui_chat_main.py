@@ -1,3 +1,11 @@
+# This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. 
+# If a copy of the MPL was not distributed with this file, 
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Author: qurel
+# GitHub: https://github.com/QureL/horn
+# Copyright reserved
+
 from ui.design.Ui_gpt_main_window import Ui_gpt_chat_widget
 from ui.gui_gpt_session import GPTSessionSelect
 from PySide6.QtWidgets import QWidget

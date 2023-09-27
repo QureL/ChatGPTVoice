@@ -1,3 +1,11 @@
+# This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. 
+# If a copy of the MPL was not distributed with this file, 
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Author: qurel
+# GitHub: https://github.com/QureL/horn
+# Copyright reserved
+
 from audio.audio import AudioDeviceKeepr, AudioRecorder
 from audio.speaker_windows import SpeakderPyTTSx3
 from processor.processor import STT_ProcessorLocal, STT_ProcessorRemote

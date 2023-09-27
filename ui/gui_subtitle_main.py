@@ -1,3 +1,11 @@
+# This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. 
+# If a copy of the MPL was not distributed with this file, 
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Author: qurel
+# GitHub: https://github.com/QureL/horn
+# Copyright reserved
+
 from PySide6.QtWidgets import QWidget, QMessageBox
 from ui.design.Ui_subtitle_main_window import Ui_subtitle_main
 from config.config import SubtitleConfig
