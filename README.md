@@ -79,6 +79,14 @@ python scrpit/whisper_server.py --model large-v2
 python .\main.py --whisper_mode remote --whisper_address ws://{你的Linux IP}:3001
 ```
 
+## 启用代理
+
+```powershell
+python .\main.py --proxy http://127.0.0.1:10809
+```
+
+启用代理后openai gpt请求、模型下载流量均会经过代理节点
+
 ## TODO LIST
 
 - [ ] 国际化支持

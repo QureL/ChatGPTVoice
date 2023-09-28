@@ -81,12 +81,17 @@ parser.add_argument('--whisper_mode', dest='whisper_mode',
 parser.add_argument('--whisper_address', dest='whisper_address',
                     help='if mode=remote, then set you whisper remote websocket address here',
                     default="")
+parser.add_argument('--proxy', dest="proxy",
+                    help="http proxy address, such as http://127.0.0.1:10809")
 args = parser.parse_args()
 config = load_config()
 if args.whisper_mode != 'local':
     config.stt_mode = 'remote'
     config.stt_remote_address = args.whisper_address
 
+if args.proxy is not None:
+    os.environ['HTTP_PROXY'] = os.environ['HTTPS_PROXY'] = args.proxy 
+    
 app = QApplication([])
 
 
