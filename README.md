@@ -55,6 +55,12 @@ python -m venv .\venv\
 pip install -r requirements.txt
 ```
 
+linux
+```bash
+apt install portaudio19-dev python3-pyaudio
+apt install espeak
+```
+
 ## 运行
 
 在虚拟环境中直接执行
