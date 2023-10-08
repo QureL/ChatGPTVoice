@@ -24,6 +24,7 @@ class BackgroudImport(QThread):
 
     def run(self) -> None:
         import pyttsx3, nltk
+        nltk.download('punkt')
         import pyaudio
         config = load_config()
         if config.stt_mode == 'local': import whisper
