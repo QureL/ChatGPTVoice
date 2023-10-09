@@ -23,7 +23,7 @@ class Ui_GPT_Setting(object):
     def setupUi(self, GPT_Setting):
         if not GPT_Setting.objectName():
             GPT_Setting.setObjectName(u"GPT_Setting")
-        GPT_Setting.resize(385, 264)
+        GPT_Setting.resize(385, 292)
         self.verticalLayout = QVBoxLayout(GPT_Setting)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout = QHBoxLayout()
@@ -159,17 +159,17 @@ class Ui_GPT_Setting(object):
     # setupUi
 
     def retranslateUi(self, GPT_Setting):
-        GPT_Setting.setWindowTitle(QCoreApplication.translate("GPT_Setting", u"GPT\u8bbe\u7f6e", None))
-        self.label.setText(QCoreApplication.translate("GPT_Setting", u"\u4e0a\u4e0b\u6587\u6570\u91cf", None))
-        self.label_2.setText(QCoreApplication.translate("GPT_Setting", u"GPT\u6a21\u578b", None))
+        GPT_Setting.setWindowTitle(QCoreApplication.translate("GPT_Setting", u"gpt setting", None))
+        self.label.setText(QCoreApplication.translate("GPT_Setting", u"Context Amount", None))
+        self.label_2.setText(QCoreApplication.translate("GPT_Setting", u"GPT Model", None))
         self.comboBox.setItemText(0, QCoreApplication.translate("GPT_Setting", u"gpt-3.5-turbo", None))
 
         self.label_5.setText(QCoreApplication.translate("GPT_Setting", u"GPT API BASE", None))
         self.label_6.setText(QCoreApplication.translate("GPT_Setting", u"GPT API KEY", None))
-        self.label_3.setText(QCoreApplication.translate("GPT_Setting", u"\u9884\u7f6e\u6307\u4ee4", None))
-        self.label_4.setText(QCoreApplication.translate("GPT_Setting", u"AI\u8bed\u901f", None))
+        self.label_3.setText(QCoreApplication.translate("GPT_Setting", u"System Command", None))
+        self.label_4.setText(QCoreApplication.translate("GPT_Setting", u"AI Speak Speed", None))
         self.label_7.setText(QCoreApplication.translate("GPT_Setting", u"gpt temperature", None))
-        self.btn_confirm.setText(QCoreApplication.translate("GPT_Setting", u"\u786e\u5b9a", None))
-        self.btn_cancel.setText(QCoreApplication.translate("GPT_Setting", u"\u53d6\u6d88", None))
+        self.btn_confirm.setText(QCoreApplication.translate("GPT_Setting", u"Confirm", None))
+        self.btn_cancel.setText(QCoreApplication.translate("GPT_Setting", u"Cancel", None))
     # retranslateUi
 

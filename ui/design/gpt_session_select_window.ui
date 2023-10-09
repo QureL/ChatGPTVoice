@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>选择GPT会话</string>
+   <string>Select gpt session</string>
   </property>
   <widget class="QListWidget" name="listWidget">
    <property name="geometry">
@@ -36,28 +36,28 @@
     <item>
      <widget class="QPushButton" name="view_btn">
       <property name="text">
-       <string>查看</string>
+       <string>View</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="confirm_btn">
       <property name="text">
-       <string>确认</string>
+       <string>Confirm</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="cancel_btn">
       <property name="text">
-       <string>取消</string>
+       <string>Cancel</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="rename_btn">
       <property name="text">
-       <string>重命名</string>
+       <string>Rename</string>
       </property>
      </widget>
     </item>

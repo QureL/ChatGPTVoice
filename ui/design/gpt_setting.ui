@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>385</width>
-    <height>264</height>
+    <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GPT设置</string>
+   <string>gpt setting</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>上下文数量</string>
+        <string>Context Amount</string>
        </property>
       </widget>
      </item>
@@ -40,7 +40,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>GPT模型</string>
+        <string>GPT Model</string>
        </property>
       </widget>
      </item>
@@ -88,7 +88,7 @@
      <item>
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>预置指令</string>
+        <string>System Command</string>
        </property>
       </widget>
      </item>
@@ -102,7 +102,7 @@
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>AI语速</string>
+        <string>AI Speak Speed</string>
        </property>
       </widget>
      </item>
@@ -141,14 +141,14 @@
      <item>
       <widget class="QPushButton" name="btn_confirm">
        <property name="text">
-        <string>确定</string>
+        <string>Confirm</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btn_cancel">
        <property name="text">
-        <string>取消</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>查看会话</string>
+   <string>Show Session</string>
   </property>
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">

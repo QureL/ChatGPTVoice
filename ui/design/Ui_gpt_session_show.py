@@ -32,6 +32,6 @@ class Ui_gpt_show_session(object):
     # setupUi
 
     def retranslateUi(self, gpt_show_session):
-        gpt_show_session.setWindowTitle(QCoreApplication.translate("gpt_show_session", u"\u67e5\u770b\u4f1a\u8bdd", None))
+        gpt_show_session.setWindowTitle(QCoreApplication.translate("gpt_show_session", u"Show Session", None))
     # retranslateUi
 

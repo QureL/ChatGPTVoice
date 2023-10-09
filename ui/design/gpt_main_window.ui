@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>gpt聊天</string>
+   <string>gpt voice chat</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4" stretch="3,1,2,8">
    <item>
@@ -27,7 +27,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>选择输入设备</string>
+          <string>Select input device</string>
          </property>
         </widget>
        </item>
@@ -40,7 +40,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>选择gpt输出设备</string>
+          <string>Select gpt output</string>
          </property>
         </widget>
        </item>
@@ -53,7 +53,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>修正语音识别</string>
+          <string>Correct voice recognition</string>
          </property>
         </widget>
        </item>
@@ -100,12 +100,12 @@
          </property>
          <item>
           <property name="text">
-           <string>否</string>
+           <string>No</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>是</string>
+           <string>Yes</string>
           </property>
          </item>
         </widget>
@@ -123,7 +123,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>开始说话</string>
+          <string>Talk</string>
          </property>
         </widget>
        </item>
@@ -136,14 +136,14 @@
      <item>
       <widget class="QPushButton" name="tab1_load_session_btn">
        <property name="text">
-        <string>载入会话</string>
+        <string>Load Session</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btn_gpt_setting">
        <property name="text">
-        <string>更多设置</string>
+        <string>Settings</string>
        </property>
       </widget>
      </item>
@@ -176,7 +176,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>发送</string>
+        <string>Send</string>
        </property>
       </widget>
      </item>
@@ -191,7 +191,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>重播</string>
+          <string>Replay</string>
          </property>
         </widget>
        </item>

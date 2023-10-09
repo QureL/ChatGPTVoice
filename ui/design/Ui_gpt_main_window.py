@@ -187,17 +187,17 @@ class Ui_gpt_chat_widget(object):
     # setupUi
 
     def retranslateUi(self, gpt_chat_widget):
-        gpt_chat_widget.setWindowTitle(QCoreApplication.translate("gpt_chat_widget", u"gpt\u804a\u5929", None))
-        self.tab1_select_input_label_2.setText(QCoreApplication.translate("gpt_chat_widget", u"\u9009\u62e9\u8f93\u5165\u8bbe\u5907", None))
-        self.tab1_select_output_label_2.setText(QCoreApplication.translate("gpt_chat_widget", u"\u9009\u62e9gpt\u8f93\u51fa\u8bbe\u5907", None))
-        self.label.setText(QCoreApplication.translate("gpt_chat_widget", u"\u4fee\u6b63\u8bed\u97f3\u8bc6\u522b", None))
-        self.tab1_select_correct_s2t_combo.setItemText(0, QCoreApplication.translate("gpt_chat_widget", u"\u5426", None))
-        self.tab1_select_correct_s2t_combo.setItemText(1, QCoreApplication.translate("gpt_chat_widget", u"\u662f", None))
+        gpt_chat_widget.setWindowTitle(QCoreApplication.translate("gpt_chat_widget", u"gpt voice chat", None))
+        self.tab1_select_input_label_2.setText(QCoreApplication.translate("gpt_chat_widget", u"Select input device", None))
+        self.tab1_select_output_label_2.setText(QCoreApplication.translate("gpt_chat_widget", u"Select gpt output", None))
+        self.label.setText(QCoreApplication.translate("gpt_chat_widget", u"Correct voice recognition", None))
+        self.tab1_select_correct_s2t_combo.setItemText(0, QCoreApplication.translate("gpt_chat_widget", u"No", None))
+        self.tab1_select_correct_s2t_combo.setItemText(1, QCoreApplication.translate("gpt_chat_widget", u"Yes", None))
 
-        self.tab1_start_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u5f00\u59cb\u8bf4\u8bdd", None))
-        self.tab1_load_session_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u8f7d\u5165\u4f1a\u8bdd", None))
-        self.btn_gpt_setting.setText(QCoreApplication.translate("gpt_chat_widget", u"\u66f4\u591a\u8bbe\u7f6e", None))
-        self.tab1_send_corrected_text_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u53d1\u9001", None))
-        self.tab1_speak_again_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"\u91cd\u64ad", None))
+        self.tab1_start_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"Talk", None))
+        self.tab1_load_session_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"Load Session", None))
+        self.btn_gpt_setting.setText(QCoreApplication.translate("gpt_chat_widget", u"Settings", None))
+        self.tab1_send_corrected_text_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"Send", None))
+        self.tab1_speak_again_btn.setText(QCoreApplication.translate("gpt_chat_widget", u"Replay", None))
     # retranslateUi
 

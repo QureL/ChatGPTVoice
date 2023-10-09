@@ -59,10 +59,10 @@ class Ui_gpt_session_select(object):
     # setupUi
 
     def retranslateUi(self, gpt_session_select):
-        gpt_session_select.setWindowTitle(QCoreApplication.translate("gpt_session_select", u"\u9009\u62e9GPT\u4f1a\u8bdd", None))
-        self.view_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u67e5\u770b", None))
-        self.confirm_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u786e\u8ba4", None))
-        self.cancel_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u53d6\u6d88", None))
-        self.rename_btn.setText(QCoreApplication.translate("gpt_session_select", u"\u91cd\u547d\u540d", None))
+        gpt_session_select.setWindowTitle(QCoreApplication.translate("gpt_session_select", u"Select gpt session", None))
+        self.view_btn.setText(QCoreApplication.translate("gpt_session_select", u"View", None))
+        self.confirm_btn.setText(QCoreApplication.translate("gpt_session_select", u"Confirm", None))
+        self.cancel_btn.setText(QCoreApplication.translate("gpt_session_select", u"Cancel", None))
+        self.rename_btn.setText(QCoreApplication.translate("gpt_session_select", u"Rename", None))
     # retranslateUi
 

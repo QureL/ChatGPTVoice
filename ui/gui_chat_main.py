@@ -58,10 +58,10 @@ class GPTWidget(QWidget, Ui_gpt_chat_widget):
             self.update_configurations()
             # todo: to be graceful
             self.controller.record_or_pause()
-            if self.tab1_start_btn.text() == "开始说话":
-                self.tab1_start_btn.setText('停止说话')
+            if self.tab1_start_btn.text() == "Talk":
+                self.tab1_start_btn.setText('Stop')
             else:
-                self.tab1_start_btn.setText('开始说话')
+                self.tab1_start_btn.setText('Talk')
         self.tab1_start_btn.clicked.connect(start_btn_clicked_callback)
         #################################
         def tab1_send_corrected_text_btn_callback():
