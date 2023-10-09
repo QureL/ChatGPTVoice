@@ -89,6 +89,8 @@ config = load_config()
 if args.whisper_mode != 'local':
     config.stt_mode = 'remote'
     config.stt_remote_address = args.whisper_address
+else:
+    config.stt_mode = 'local'
 
 if args.proxy is not None:
     os.environ['HTTP_PROXY'] = os.environ['HTTPS_PROXY'] = args.proxy 
