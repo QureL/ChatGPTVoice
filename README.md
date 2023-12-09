@@ -1,4 +1,4 @@
-# horn
+# GPT_Talk_Local
 [简体中文](https://github.com/QureL/horn/blob/main/README_cn.md)
 
 Base on [whisper](https://openai.com/research/whisper) and PyQT(PySide6), a real-time GPT chat tool is developed, supporting historical conversations.
@@ -27,7 +27,7 @@ In summary, the base model is more user-friendly, but if conditions allow, it's 
 Clone repo
 
 ```bash
-git clone https://github.com/QureL/horn.git
+git clone https://github.com/QureL/GPT_Talk_Local.git
 cd horn
 ```
 

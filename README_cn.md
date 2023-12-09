@@ -1,4 +1,4 @@
-# horn
+# GPT_Talk_Local
 基于[whisper](https://openai.com/research/whisper)和PyQT(PySide6)的实时GPT聊天工具，支持历史会话
 
 
@@ -37,7 +37,7 @@ python >= 3.10
 克隆项目
 
 ```bash
-git clone https://github.com/QureL/horn.git
+git clone https://github.com/QureL/GPT_Talk_Local.git
 cd horn
 ```
 
