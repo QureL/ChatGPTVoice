@@ -1,47 +1,37 @@
 # horn
-基于[whisper](https://openai.com/research/whisper)和PyQT(PySide6)的实时GPT聊天工具，支持历史会话
+[简体中文](https://github.com/QureL/horn/blob/main/README_cn.md)
 
+Base on [whisper](https://openai.com/research/whisper) and PyQT(PySide6), a real-time GPT chat tool is developed, supporting historical conversations.
 
-效果演示：
+Demo：
 [![](https://i.ytimg.com/vi/kg4KivftTps/maxresdefault.jpg)](https://youtu.be/kg4KivftTps?si=LZI5ShF5fhIqFjWj "")
 
-滑稽的中文效果：
-[![](https://i.ytimg.com/vi/9svpySx0J8A/maxresdefault.jpg)](https://youtu.be/9svpySx0J8A "")
 
-## 环境需求
+
+## Requirement
 
 python >= 3.10
 
-### 操作系统
+### OS
 
-### win10
+win10+, Linux(Just test in Ubuntu, works), Mac(Based on Linux as reference, theoretically feasible, but not tested.)
 
-本人环境，可行
+### GPU
 
-### Linux
+Running the `whisper base model` requires less than 1GB of available memory, and the results are passable with no noise and an accuracy rate around 90% in accurate spoken language situations. The `whisper large model` requires over 8GB of available memory, yet it provides excellent performance. Even my poor English speaking skills are recognized fairly accurately. Moreover, it handles long speech segments and interruptions quite effectively.
 
-未测试过Linux desktop环境下的表现，理论可行，tts相关可能需要注意，参照 https://github.com/nateshmbhat/pyttsx3#installation-
+In summary, the base model is more user-friendly, but if conditions allow, it's recommended to use the large model. In cases of recognition errors, modifications can be directly made to the recognized results in the GUI.
 
-### Mac
+## Install
 
-参照Linux，理论可行。
-
-### 显卡
-
-运行`whisper base model`所需显存在1G以下，效果尚可，无杂音、口语准确的情况下准确率能在90%。whisper的`large model`占用显存在8G以上，但是效果非常好，我这糟糕的英语口语都能基本识别对，而且对长语音、断断续续的也有很棒的处理效果。
-
-总体来说，base model比较亲民，但是有条件尽量上large model。对于识别错误的情况，可以在GUI直接修改识别结果。
-
-## 安装
-
-克隆项目
+Clone repo
 
 ```bash
 git clone https://github.com/QureL/horn.git
 cd horn
 ```
 
-创建并激活虚拟环境（powershell）
+Create and activate a virtual environment.(powershell. In Bash, you may need to run scripts like activate.)
 
 ```powershell
 mkdir venv
@@ -49,49 +39,49 @@ python -m venv .\venv\
 .\venv\Scripts\Activate.ps1
 ```
 
-安装依赖
+Install dependencies.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-linux
+In Linux, you need to run the following command to install the required dependencies.
 ```bash
 apt install portaudio19-dev python3-pyaudio
 apt install espeak
 ```
 
-## 运行
+## Run
 
-在虚拟环境中直接执行
+Execute directly within the virtual env.
 
 ```
 python ./main.py
 ```
 
-## whisper远程执行
+## whisper run remotely
 
-本人有一台12G显存的Linux主机，一台孱弱的1650笔记本，为了能跑whisper large model，可以考虑whisper放在Linux上，客户端和whisper使用ws通信：
+I have a Linux host with 12GB of GPU memory and a laptop with a weak 1650 GPU. To run the Whisper large model, you can host Whisper on Linux and use websocket communication between the client and Whisper.
 
-Linux上：
+Linux：
 
 ```
 python scrpit/whisper_server.py --model large-v2
 ```
 
-客户端：
+client：
 
 ```
-python .\main.py --whisper_mode remote --whisper_address ws://{你的Linux IP}:3001
+python .\main.py --whisper_mode remote --whisper_address ws://{You Linux IP}:3001
 ```
 
-## 启用代理
+## Proxy for openai
 
 ```powershell
 python .\main.py --proxy http://127.0.0.1:10809
 ```
 
-启用代理后openai gpt请求、模型下载流量均会经过代理节点
+After enabling the proxy, all OpenAI GPT requests and model downloads will pass through the proxy node.
 
 ## TODO LIST
 

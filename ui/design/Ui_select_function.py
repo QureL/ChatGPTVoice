@@ -26,7 +26,7 @@ class Ui_Form(object):
         Form.resize(336, 151)
         self.layoutWidget = QWidget(Form)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(70, 30, 180, 81))
+        self.layoutWidget.setGeometry(QRect(70, 30, 203, 81))
         self.verticalLayout = QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setSizeConstraint(QLayout.SetFixedSize)
@@ -71,9 +71,9 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"horn", None))
-        self.label.setText(QCoreApplication.translate("Form", u"\u9009\u62e9\u529f\u80fd", None))
-        self.select_funcion_combo.setItemText(0, QCoreApplication.translate("Form", u"gpt\u8bed\u97f3\u804a\u5929", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Feature Selection", None))
+        self.select_funcion_combo.setItemText(0, QCoreApplication.translate("Form", u"gpt voice chat", None))
 
-        self.pushButton.setText(QCoreApplication.translate("Form", u"\u786e\u5b9a", None))
+        self.pushButton.setText(QCoreApplication.translate("Form", u"confirm", None))
     # retranslateUi
 

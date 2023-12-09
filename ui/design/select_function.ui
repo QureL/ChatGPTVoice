@@ -18,7 +18,7 @@
     <rect>
      <x>70</x>
      <y>30</y>
-     <width>180</width>
+     <width>203</width>
      <height>81</height>
     </rect>
    </property>
@@ -31,7 +31,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>选择功能</string>
+         <string>Feature Selection</string>
         </property>
        </widget>
       </item>
@@ -39,7 +39,7 @@
        <widget class="QComboBox" name="select_funcion_combo">
         <item>
          <property name="text">
-          <string>gpt语音聊天</string>
+          <string>gpt voice chat</string>
          </property>
         </item>
        </widget>
@@ -60,7 +60,7 @@
          <enum>Qt::LeftToRight</enum>
         </property>
         <property name="text">
-         <string>确定</string>
+         <string>confirm</string>
         </property>
        </widget>
       </item>
