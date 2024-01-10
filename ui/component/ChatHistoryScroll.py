@@ -14,6 +14,7 @@ class ChatHistoryScroll(ScrollArea):
         self.layout.setSpacing(2)
         self.setWidget(self.contentWidget)
         self.setWidgetResizable(True)
+        self.setStyleSheet("background-color: #6699CC;")
 
     def add_history(self, title):
         card = ChatHistoryCard(title)
