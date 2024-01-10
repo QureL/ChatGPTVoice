@@ -7,7 +7,7 @@ class ChatHistoryScroll(ScrollArea):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.horizontalScrollBar().setValue(0)
-        self.setFixedSize(200, 500)
+        self.setFixedSize(200, 700)
         self.contentWidget = QWidget()
         self.layout = QVBoxLayout(self.contentWidget)
         self.layout.setContentsMargins(0, 0, 0, 0)
