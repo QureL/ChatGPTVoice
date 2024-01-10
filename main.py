@@ -96,8 +96,8 @@ class Entrance(FramelessWindow):
             self.import_success_callback()
 
     def import_success_callback(self):
-        from ui.main_window import MainWindow
-        self.child = MainWindow(self.mode)
+        from ui.views.GPTChatMain import GPTChatMain
+        self.child = GPTChatMain()
         self.child.show()
         self.close()
 
