@@ -1,10 +1,31 @@
-# GPT_Talk_Local
-[简体中文](https://github.com/QureL/horn/blob/main/README_cn.md)
+<h1 align="center">
+  ChatGPTVoice
+</h1>
 
-Base on [whisper](https://openai.com/research/whisper) and PyQT(PySide6), a real-time GPT chat tool is developed, supporting historical conversations. This can help you enjoy the fun of chatting with GPT voice without relying on ChatGPT Plus.
+<p align="center">
+    <a>
+        <img src="https://img.shields.io/badge/chatGPT-74aa9c?logo=openai&logoColor=white">
+    </a>
+    <a>
+        <img src="https://img.shields.io/badge/Python-3.10-yellowgreen">
+    </a>
+    <a style="text-decoration:none">
+        <img src="https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey" />
+    </a>
+    <a>
+        <img src="https://img.shields.io/badge/pyqt-green.svg">
+    </a>
+</p>
 
-Demo：
-[![](https://i.ytimg.com/vi/kg4KivftTps/maxresdefault.jpg)](https://youtu.be/kg4KivftTps?si=LZI5ShF5fhIqFjWj "")
+[中文](https://github.com/QureL/horn/blob/main/README_cn.md)
+
+Base on [whisper](https://openai.com/research/whisper) and PyQT(PySide6), a RealTime Voice GPT chat tool, supporting historical conversations. Enjoy chatting with GPT voice without relying on ChatGPT Plus. :chicken::chicken: 
+
+<!-- Demo：
+[![](https://i.ytimg.com/vi/kg4KivftTps/maxresdefault.jpg)](https://youtu.be/kg4KivftTps?si=LZI5ShF5fhIqFjWj "") -->
+
+![](https://raw.githubusercontent.com/QureL/GPT_Talk_Local/main/img/main.png)
+
 
 
 
@@ -27,8 +48,8 @@ In summary, the base model is more user-friendly, but if conditions allow, it's 
 Clone repo
 
 ```bash
-git clone https://github.com/QureL/GPT_Talk_Local.git
-cd GPT_Talk_Local
+git clone https://github.com/QureL/ChatGPTVoice.git
+cd ChatGPTVoice
 ```
 
 Create and activate a virtual environment.(powershell. In Bash, you may need to run scripts like activate.)
@@ -83,10 +104,14 @@ python .\main.py --proxy http://127.0.0.1:10809
 
 After enabling the proxy, all OpenAI GPT requests and model downloads will pass through the proxy node.
 
+## Thanks
+
+[PyQt-Fluent-Widgets](https://github.com/zhiyiYo/PyQt-Fluent-Widgets) A fluent design widgets library based on PyQt5
+
 ## TODO LIST
 
-- [ ] 国际化支持
-- [ ] 聊天ui优化
+- [x] 国际化支持
+- [x] 聊天ui优化
 - [ ] 导入其他TTS
 - [ ] 消息编辑
 - [ ] 本地langchain向量库
