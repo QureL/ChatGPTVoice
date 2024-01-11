@@ -2,10 +2,11 @@
 # If a copy of the MPL was not distributed with this file, 
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
-from qfluentwidgets import FluentIcon, TextEdit, PrimaryPushButton
+from qfluentwidgets import FluentIcon, TextEdit, PushButton, ToolButton, PrimaryPushButton
 from qframelesswindow import FramelessWindow
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QLabel
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout
+from PySide6.QtCore import Qt, QUrl
+from PySide6.QtGui import QDesktopServices
 from ui.component.ChatArea import ChatArea
 from ui.component.ChatHistoryScroll import ChatHistoryScroll
 from ui.component.IOSettingComponent import IOSettingComponent
@@ -45,13 +46,19 @@ class GPTChatMain(FramelessWindow):
         self.vBoxLayout.setSpacing(5)
         self.vBoxLayout.addWidget(self.IOSetting)
         # 设置按钮
-        self.settingButton = PrimaryPushButton("setting", self, FluentIcon.SETTING)
+        self.settingGithubButtonLayout = QHBoxLayout()
+        self.settingButton = PushButton("setting", self, FluentIcon.SETTING)
         self.settingButton.setFixedWidth(95)
-
+        # github
+        self.github = ToolButton(FluentIcon.GITHUB, self)
+        self.settingGithubButtonLayout.setSpacing(5)
+        self.settingGithubButtonLayout.addWidget(self.settingButton, 0, Qt.AlignmentFlag.AlignLeft)
+        self.settingGithubButtonLayout.addWidget(self.github, 0, Qt.AlignmentFlag.AlignLeft)
+        self.settingGithubButtonLayout.addSpacing(300)
         # 禁声按钮
         self.vioceControlButton = VoiceControlButton(self)
 
-        self.vBoxLayout.addWidget(self.settingButton)
+        self.vBoxLayout.addLayout(self.settingGithubButtonLayout)
         self.vBoxLayout.addWidget(self.chatArea)
 
         self.hBoxLayout.addWidget(self.chatHistoryScroll)
@@ -124,6 +131,9 @@ class GPTChatMain(FramelessWindow):
             self.vioceControlButton.switch()
         self.vioceControlButton.clicked.connect(voice_control_btn_callback)
         #################################
+        ####    github
+        self.github.clicked.connect(lambda: 
+            QDesktopServices.openUrl(QUrl("https://github.com/QureL/GPT_Talk_Local")))
 
 
     def bind_signals(self):

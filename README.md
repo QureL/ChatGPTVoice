@@ -1,7 +1,7 @@
 # GPT_Talk_Local
 [简体中文](https://github.com/QureL/horn/blob/main/README_cn.md)
 
-Base on [whisper](https://openai.com/research/whisper) and PyQT(PySide6), a real-time GPT chat tool is developed, supporting historical conversations.
+Base on [whisper](https://openai.com/research/whisper) and PyQT(PySide6), a real-time GPT chat tool is developed, supporting historical conversations. This can help you enjoy the fun of chatting with GPT voice without relying on ChatGPT Plus.
 
 Demo：
 [![](https://i.ytimg.com/vi/kg4KivftTps/maxresdefault.jpg)](https://youtu.be/kg4KivftTps?si=LZI5ShF5fhIqFjWj "")
@@ -28,7 +28,7 @@ Clone repo
 
 ```bash
 git clone https://github.com/QureL/GPT_Talk_Local.git
-cd horn
+cd GPT_Talk_Local
 ```
 
 Create and activate a virtual environment.(powershell. In Bash, you may need to run scripts like activate.)
