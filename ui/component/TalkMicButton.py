@@ -1,7 +1,4 @@
-from qfluentwidgets import IconWidget, FluentIcon, PrimaryPushButton
-import sys
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget, QHBoxLayout, QFrame
-from PySide6.QtCore import Qt
+from qfluentwidgets import FluentIcon, PrimaryPushButton
 
 
 class TalkMicButton(PrimaryPushButton):

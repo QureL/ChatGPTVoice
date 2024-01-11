@@ -77,6 +77,7 @@ class Entrance(FramelessWindow):
     def render(self,):
         self.comboBox.addItems(["gpt voice talk locally"])
         self.vBoxLayout.addWidget(self.frame, 0, Qt.AlignCenter)
+        self.shoudPreLoadCheckBox.setChecked(True)
         self.confirmBtn.clicked.connect(self.confirmBtnCallBack)
 
     def confirmBtnCallBack(self):

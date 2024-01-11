@@ -17,7 +17,7 @@ class ChatArea(ScrollArea):
         self.layout.setAlignment(Qt.AlignTop)
         self.setWidget(self.contentWidget)
         self.setWidgetResizable(True)
-        self.setStyleSheet("background-color: #F0F8FF;border: none;") 
+        self.setStyleSheet("background-color: #FFFFCC;border: none;") 
 
     def add_human_message(self, content):
         frame = QFrame(self.contentWidget)

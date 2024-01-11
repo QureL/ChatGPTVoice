@@ -4,12 +4,13 @@
 
 from qfluentwidgets import FluentIcon, TextEdit, PrimaryPushButton
 from qframelesswindow import FramelessWindow
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QLabel
 from PySide6.QtCore import Qt
 from ui.component.ChatArea import ChatArea
 from ui.component.ChatHistoryScroll import ChatHistoryScroll
 from ui.component.IOSettingComponent import IOSettingComponent
 from ui.component.TalkMicButton import TalkMicButton
+from ui.component.VoiceControlButton import VoiceControlButton
 from const import *
 import logging, sys
 from ui.gui_chat_setting import GPTSettingWindow
@@ -47,6 +48,8 @@ class GPTChatMain(FramelessWindow):
         self.settingButton = PrimaryPushButton("setting", self, FluentIcon.SETTING)
         self.settingButton.setFixedWidth(95)
 
+        # 禁声按钮
+        self.vioceControlButton = VoiceControlButton(self)
 
         self.vBoxLayout.addWidget(self.settingButton)
         self.vBoxLayout.addWidget(self.chatArea)
@@ -63,11 +66,11 @@ class GPTChatMain(FramelessWindow):
         self.sendButton = PrimaryPushButton("Send", self, FluentIcon.SEND)
         
         
-        
         self.buttonVBoxLayout = QVBoxLayout()
         self.buttonVBoxLayout.setSpacing(2)
         self.buttonVBoxLayout.addWidget(self.talkButton)
         self.buttonVBoxLayout.addWidget(self.sendButton)
+        self.buttonVBoxLayout.addWidget(self.vioceControlButton)
         self.inputTextEdit.setPlaceholderText(
             'Click `Talk` Button to Start, then Click `Send` Button to Send. Or Input Text Here Directly.'
         )
@@ -90,12 +93,14 @@ class GPTChatMain(FramelessWindow):
 
     def bind_buttons(self):
         #################################
+        ####    Talk按钮绑定
         def start_btn_clicked_callback():
             self.update_configurations()
             self.controller.record_or_pause()
             self.talkButton.switch()
         self.talkButton.clicked.connect(start_btn_clicked_callback)
         #################################
+        ####    发送按钮绑定
         def tab1_send_corrected_text_btn_callback():
             txt = self.inputTextEdit.toPlainText()
             if len(txt) == 0: return
@@ -112,10 +117,24 @@ class GPTChatMain(FramelessWindow):
             self.gpt_setting_window.show()
 
         self.settingButton.clicked.connect(btn_gpt_setting_callback)
+        #################################
+        ####    禁声按钮绑定
+        def voice_control_btn_callback():
+            self.controller.pause_speaking()
+            self.vioceControlButton.switch()
+        self.vioceControlButton.clicked.connect(voice_control_btn_callback)
+        #################################
+
 
     def bind_signals(self):
+        #################################
+        ####    gpt message signal 绑定
         self.text_browser_signal.connect(self.chatArea.add_bot_message)
+        ####    whisper识别结果 signal 绑定
         self.correct_s2t_editor_signal.connect(self.inputTextEdit.append)
+
+        #################################
+        ####    选择历史记录后的回调
         def select_session_callback(session):
             gpt_requstor = GPTReuqestor.get_instance()
             gpt_requstor.set_session(session)
@@ -143,9 +162,12 @@ class GPTChatMain(FramelessWindow):
         self.controller.set_attributes_recorder(recorder_input_device=input_device)
 
     def release_resource(self):
+        # 保存配置
         dump_config()
         self.controller.stop_thread()
 
+    #################################
+    ####    重写关闭事件
     def closeEvent(self, event):
         self.release_resource()
         event.accept()
