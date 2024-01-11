@@ -29,5 +29,7 @@ def load_messages(session_pool: str):
     history = FileChatMessageHistory(path)
     return history.messages
 
-def rename_session(session_name, new_name):
-    pass
+def rename_session(old_name, new_name):
+    path = os.path.join(root_path, old_name)
+    new_path = os.path.join(root_path, new_name)
+    os.rename(path, new_path)
